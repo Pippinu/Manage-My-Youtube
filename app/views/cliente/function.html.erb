@@ -120,7 +120,7 @@
                 <a class="link-secondary">Lista dei video</a>
                 <br>
 
-                <% affilRecord = Affiliation.find_by(cliente: current_user.id)%>
+                <% affilRecord = Affiliation.find_by(cliente: current_user.id, status: "accepted")%>
                 <% managerID = affilRecord.manager %>
                 <ul class="list-group">
 
