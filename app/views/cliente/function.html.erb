@@ -82,7 +82,7 @@
       end    
     %>
 
-    <div class="container d-flex flex-row" style="height:270px">
+    <div class="container d-flex flex-row" style="min-height:270px">
         <div class="d-flex flex-column align-items-center col-6" >
             <h2 class="pt-3">Informazioni</h2>
             <div class="pt-4">
@@ -122,10 +122,32 @@
 
                 <% affilRecord = Affiliation.find_by(cliente: current_user.id)%>
                 <% managerID = affilRecord.manager %>
+                <ul class="list-group">
 
+                    <%if !Calendar.where(userId: current_user.id.to_s).where(managerId: managerID).take%>
+                        <li class="text-danger">Il tuo manager non ha ancora creato un Calendar !</li>
+                    <%else%>
+                    <div class="d-flex flex-row gap-3 align-items-center">
+                        <div>
+                            <%= link_to 'http://calendar.google.com/', target: :_blank do %>
+                                <li class="btn btn-warning mt-1" style="width:100%">Visualizza Calendario</li>
+                            <% end %>
+                            <br>
+                            <hr>
+                            
+                            <%= link_to calendar_createEvent_path(managerID: managerID) do %>
+                                <li class="btn btnevent mt-1" style="width:100%; background-color: rgb(169, 249, 255);">Crea Evento</li>
+                            <% end %>
+                                <a href="/cliente/events" class="btn btnevent mt-1" style="width:100%;  background-color: rgb(98, 245, 255)">Visualizza Eventi</a>
+                        </div>
+                    </div>
+                    <%end%>
+                </ul>
+                <!--
                 <%= link_to 'Crea Evento', calendar_createEvent_path(managerID: managerID) %>
                 <%= link_to 'Modifica Evento', calendar_listEvent_path(managerID: managerID) %>
                 <%= link_to 'Elimina Evento', calendar_deleteEvent_path(managerID: managerID) %>
+                -->
             </div>
 
         </div>

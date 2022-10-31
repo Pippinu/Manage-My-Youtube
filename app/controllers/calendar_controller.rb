@@ -56,6 +56,9 @@ class CalendarController < ApplicationController
 
                 if !Calendar.exists?(:hash => hash)
                     foundCalendar = Calendar.where(:hash => hash)
+
+                    #CONTROLLARE QUI SE ENTRAMBI SONO COLLEGATI A OAUTH ALTRIMENTI REINDIRIZZARLI
+                    
                     aclCalendarList = client.lists_acls(foundCalendar.calendarId)
                     acl = aclCalendarList.items.first
 
