@@ -13,7 +13,7 @@
 
 </head>
 <body>
-  <section style="background-color: white;">
+  <section style="background-color: white;min-height:505px">
     <div class="container py-5">
       <%def withoutLast5(user)
           if current_user.avatar_url
@@ -37,20 +37,6 @@
               <h5 class="my-3 text-capitalize"><%= current_user.full_name %></h5>
               <p class="text-muted mb-1 text-capitalize"><%= current_user.ruolo %></p>
 
-            </div>
-          </div>
-          <div class="card mb-4 mb-lg-0">
-            <div class="card-body p-0">
-              <ul class="list-group list-group-flush rounded-3">
-                <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                  <i class="fas fa-globe fa-lg text-warning"></i>
-                  <p class="mb-0">www.ilmiositoweb.com</p>
-                </li>
-                <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                  <i class="fab fa-youtube fa-lg" style="color: #333333;"></i>
-                  <p class="mb-0">CanaleYoutube</p>
-                </li>
-              </ul>
             </div>
           </div>
         </div>
@@ -86,14 +72,10 @@
             </div>
           </div>
           <div class="row">
-
                   <%= link_to "Modifica Profilo", edit_user_registration_path, class:"linkupdate" %>
-
           </div>
         </div>
       </div>
     </div>
   </section>
 
-</body>
-</html>
