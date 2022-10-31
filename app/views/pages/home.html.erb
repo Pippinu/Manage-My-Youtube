@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html amp >
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+  <link rel="shortcut icon" href="" type="">
+  
+  <title>ManageMyYoutube</title>
+  
+<link rel="canonical" href="bookstore.html">
+ <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style>
+<noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+<link href="https://fonts.googleapis.com/css?family=Barlow+Semi+Condensed:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+ <link href="https://fonts.googleapis.com/css?family=Heebo:100,300,400,500,700,800,900" rel="stylesheet">
+ 
+  <script async  src="https://cdn.ampproject.org/v0.js"></script>
+  <script async custom-element="amp-sidebar" src="https://cdn.ampproject.org/v0/amp-sidebar-0.1.js"></script>
+  <script async custom-template="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.2.js"></script>
+  <script async custom-element="amp-form" src="https://cdn.ampproject.org/v0/amp-form-0.1.js"></script>
+  <script async custom-element="amp-lightbox" src="https://cdn.ampproject.org/v0/amp-lightbox-0.1.js"></script>
+  <script async custom-element="amp-bind" src="https://cdn.ampproject.org/v0/amp-bind-0.1.js"></script>
+  <script async custom-element="amp-lightbox-gallery" src="https://cdn.ampproject.org/v0/amp-lightbox-gallery-0.1.js"></script>
+  <script async custom-element="amp-iframe" src="https://cdn.ampproject.org/v0/amp-iframe-0.1.js"></script>
+  <script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
+  
+  
+</head>
+<body>
+
+  <section class="cid-rslFJC9ynI" id="menu01-4n">
+	
+	<!-- mine-navbar -->
+	<nav class="mine-navbar mine-navbar-dropdown mine-navbar-expand-lg mine-navbar-fixed-top">
+		<div class="menu-mine-container mine-container-fluid">
+			
+			<div class="mine-navbar-brand">
+				<div class="mine-navbar-logo">
+					<img src="/assets/local/logomyytmanager.png" style="width:80px;padding-right:10px">
+				</div>
+				<span class="mine-navbar-caption-wrap"><a class="mine-navbar-caption mbr-semibold text-black display-5" href="/">ManageMyYoutube</a></span>
+			</div>
+
+            <div class="mine-btns">
+                <% if current_user %>
+                    <div class="mine-navbar-buttons mbr-section-mine-btn d-flex">
+                        <a class="mine-btn mine-btn-md mine-btn-black mbr-semibold display-7" href="profile">Profile</a>
+                    </div>
+                    <div class="mine-navbar-buttons mbr-section-mine-btn d-flex">
+                        <%= button_to "Logout", destroy_user_session_path, data: {turbo: "false"}, method: :delete, class:"mine-btnlogout" %>
+                    </div>
+                
+                <% else%>
+                <div class="mine-navbar-buttons mbr-section-mine-btn d-flex">
+                
+                    <a class="mine-btn mine-btn-md mine-btn-white mbr-semibold display-7" href="users/sign_in">Login</a>
+                    <%= link_to "Login", new_user_session_path %>
+                    
+                </div>
+                <div class="mine-navbar-buttons mbr-section-mine-btn d-flex">
+                    <a class="mine-btn mine-btn-md mine-btn-black mbr-semibold display-7" href="users/sign_up">Sign Up</a>
+                </div>
+                <%end %>
+            </div>
+
+		</div>
+	</nav>
+
+	
+	<!-- </div> -->
+</section>
+
+<section class="header3 cid-rsq6I1iuyl" id="header03-5g">
+    
+
+    <div class="mbr-overlay"></div>
+    <div class="mine-container">
+
+        <div class="wrapper">
+            <div class="title-wrap mbr-pb-5 align-center">
+            	<h1 class="mbr-section-subtitle mbr-regular mbr-white mbr-fonts-style mbr-pt-3 display-7">Migliora il tuo canale Youtube !</h1>                
+
+                <h2 class="mbr-section-title mbr-semibold mbr-white mbr-fonts-style display-1">ManageMyYoutube</h2>
+                <h4 class="mbr-section-subtitle mbr-regular mbr-white mbr-fonts-style mbr-pt-3 display-7">
+                    Gestire un canale Youtube è difficile quando non si ha abbastanza tempo ed esperienza. Grazie a ManageMyYoutube riuscirai a trovare il manager che fa per te e che ti aiuterà a far crescere il tuo canale !
+                </h4>
+            </div>
+            <div class="mbr-row mbr-jc-c">
+                
+                <div class="card mbr-col-sm-12 mbr-col-md-8 mbr-col-lg-4 align-center md-pb">
+                    <div class="card-wrapper mbr-flex mbr-column">
+                        <div class="card-img align-center mbr-pb-2">
+                            <div class="iconfont-wrapper">
+                                <span class="amp-iconfont mobi-mbri-delivery mobi-mbri"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="100%" height="100%"><path d="M15 3L6 7.5v10.1l9 4.5 9-4.5V7.5L15 3zm5.8 5.1L15 11 9.2 8.1 15 5.2l5.8 2.9zM8 9.7l6 3v6.7l-6-3V9.7zm8 9.7v-6.7l6-3v6.7l-6 3zM0 7h4v2H0V7zm0 4h4v2H0v-2zm0 4h4v2H0v-2z"></path></svg></span>
+                            </div>
+                        </div>
+                        <div class="card-box">
+                            <h3 class="card-title mbr-bold mbr-white mbr-fonts-style display-7">
+                                Efficienza
+                            </h3>
+                        </div>
+
+                        
+                        
+                        
+                    </div>
+                </div>
+                <div class="card mbr-col-sm-12 mbr-col-md-8 mbr-col-lg-4 align-center last-child">
+                    <div class="card-wrapper mbr-flex mbr-column">
+                        <div class="card-img align-center mbr-pb-2">
+                            <div class="iconfont-wrapper">
+                                <span class="amp-iconfont mobi-mbri-users mobi-mbri"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="100%" height="100%"><path d="M19.7 11.7c.8-.8 1.3-2 1.3-3.2C21 6 19 4 16.5 4S12 6 12 8.5c-.4-.3-.9-.6-1.4-.8.8-.8 1.4-2 1.4-3.2C12 2 10 0 7.5 0S3 2 3 4.5c0 1.3.5 2.4 1.3 3.2C1.8 8.9 0 11.5 0 14.5V20h9v4h15v-5.5c0-3-1.8-5.6-4.3-6.8zM16.5 6C17.9 6 19 7.1 19 8.5S17.9 11 16.5 11 14 9.9 14 8.5 15.1 6 16.5 6zM5 4.5C5 3.1 6.1 2 7.5 2S10 3.1 10 4.5 8.9 7 7.5 7 5 5.9 5 4.5zm-3 10C2 11.5 4.5 9 7.5 9c2.1 0 4.1 1.3 5 3.2-2 1.2-3.3 3.4-3.5 5.8H2v-3.5zM22 22H11v-3.5c0-3 2.5-5.5 5.5-5.5s5.5 2.5 5.5 5.5V22z"></path></svg></span>
+                            </div>
+                        </div>
+                        <div class="card-box">
+                            <h3 class="card-title mbr-bold mbr-white mbr-fonts-style display-7">
+                                Collaborazione
+                            </h3>
+                        </div>
+
+                        
+                        
+                        
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+</section>
+
+<!--Servizi cliente non loggato-->
+
+<% if !current_user%>
+<section class="features7 cid-rsqniVZ6fy" id="features07-5h">
+    
+    
+    <div class="mine-container"> 
+        
+        <div class="mbr-row mbr-black">
+        
+            <div class="mbr-col-lg-6 mbr-col-md-12 mbr-col-sm-12 md-pb">
+                <div class="card-item1">
+                    <div class="title-wrap align-center">
+                        <div class="title-block">
+                            <h3 class="subtitle1 mbr-pb-2 mbr-fonts-style mbr-black mbr-semibold display-4">Registrati come un</h3>
+                            <h2 class="title1 mbr-fonts-style mbr-black mbr-semibold display-2">Cliente</h2>
+                            <p class="text1 mbr-fonts-style mbr-black mbr-regular mbr-pt-2 display-7">Registrati come cliente e cerca fra migliaia di manager a cui affiliarti.</p>
+                            <div class="mbr-section-mine-btn mbr-pt-3">
+                            <a class="mine-btn-primary mine-btn display-4"  href="users/sign_up">
+                            <span class="mobi-mbri mobi-mbri-arrow-next mbr-iconfont mbr-iconfont-mine-btn"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="100%" height="100%"><path d="M4.6 22.6L15.2 12 4.6 1.4 6 0l12 12L6 24z"></path></svg>
+                            </span>Inizia</a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mbr-col-lg-6 mbr-col-md-12 mbr-col-sm-12">
+                <div class="card-item2">
+                    <div class="title-wrap align-center">
+                        <div class="title-block">
+                            <h3 class="subtitle2 mbr-pb-2 mbr-black mbr-fonts-style mbr-semibold display-4">Registrati come un</h3>
+                            <h2 class="title2 mbr-fonts-style mbr-black mbr-semibold display-2">Manager</h2>
+                            <p class="text2 mbr-fonts-style mbr-black mbr-regular mbr-pt-2 display-7">Offri i tuoi servizi in qualità di manager per uno o più clienti.</p>
+                            <div class="mbr-section-mine-btn mbr-pt-3">
+                            <a class="mine-btn-primary mine-btn display-4"  href="users/sign_up">
+                                <span class="mobi-mbri mobi-mbri-arrow-next mbr-iconfont mbr-iconfont-mine-btn">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="100%" height="100%">
+                                <path d="M4.6 22.6L15.2 12 4.6 1.4 6 0l12 12L6 24z"></path>
+                                </svg>
+                                </span>
+                                Inizia
+                                </a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        
+        
+    </div>
+    
+</section>
+<% end%>
+
+<!--Servizi cliente loggato-->
+<% if current_user%>
+<section>
+    <div class="mine-container">
+        <div style="display:flex; justify-content: center; padding-top:2rem">
+            <% if current_user.ruolo=="cliente"%>
+            <div class="mbr-col-lg-6 mbr-col-md-12 mbr-col-sm-12 md-pb">
+                <div class="card-item1">
+                    <div class="title-wrap align-center">
+                        <div class="title-block">
+                            <h2 class="title1 mbr-fonts-style mbr-black mbr-semibold display-2">Trova il tuo Manager</h2>
+                            <p class="text1 mbr-fonts-style mbr-black mbr-regular mbr-pt-2 display-7">Scorri una lista di manager e seleziona quello a cui affiliarti</p>
+                            <div class="mbr-section-mine-btn mbr-pt-3">
+                            <a class="mine-btn-primary mine-btn display-4"  href="cliente">
+                            <span class="mobi-mbri mobi-mbri-arrow-next mbr-iconfont mbr-iconfont-mine-btn"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="100%" height="100%"><path d="M4.6 22.6L15.2 12 4.6 1.4 6 0l12 12L6 24z"></path></svg>
+                            </span>Inizia</a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="mbr-col-lg-6 mbr-col-md-12 mbr-col-sm-12">
+                <div class="card-item2">
+                    <div class="title-wrap align-center">
+                        <div class="title-block">
+                            <h2 class="title2 mbr-fonts-style mbr-black mbr-semibold display-2">Gestisci il tuo canale</h2>
+                            <p class="text2 mbr-fonts-style mbr-black mbr-regular mbr-pt-2 display-7">Controlla e gestisci il tuo canale Youtube</p>
+                            <div class="mbr-section-mine-btn mbr-pt-3">
+                            <a class="mine-btn-primary mine-btn display-4"  href="cliente/function">
+                                <span class="mobi-mbri mobi-mbri-arrow-next mbr-iconfont mbr-iconfont-mine-btn">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="100%" height="100%">
+                                <path d="M4.6 22.6L15.2 12 4.6 1.4 6 0l12 12L6 24z"></path>
+                                </svg>
+                                </span>
+                                Inizia
+                                </a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+             <%end%>
+            <% if current_user.ruolo=="manager" %>
+            <div class="mbr-col-lg-6 mbr-col-md-12 mbr-col-sm-12">
+                <div class="card-item2">
+                    <div class="title-wrap align-center">
+                        <div class="title-block">
+                            <h3 class="subtitle2 mbr-pb-2 mbr-black mbr-fonts-style mbr-semibold display-4"></h3>
+                            <h2 class="title2 mbr-fonts-style mbr-black mbr-semibold display-2">Controlla le tue affiliazioni</h2>
+                            <p class="text2 mbr-fonts-style mbr-black mbr-regular mbr-pt-2 display-7">Tieni sotto controllo le eventuali richieste di affiliazione di nuovi clienti</p>
+                            <div class="mbr-section-mine-btn mbr-pt-3">
+                            <a class="mine-btn-primary mine-btn display-4"  href="/manager/affiliazioni">
+                                <span class="mobi-mbri mobi-mbri-arrow-next mbr-iconfont mbr-iconfont-mine-btn">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="100%" height="100%">
+                                <path d="M4.6 22.6L15.2 12 4.6 1.4 6 0l12 12L6 24z"></path>
+                                </svg>
+                                </span>
+                                Inizia
+                                </a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="mbr-col-lg-6 mbr-col-md-12 mbr-col-sm-12">
+                <div class="card-item2">
+                    <div class="title-wrap align-center">
+                        <div class="title-block">
+                            <h3 class="subtitle2 mbr-pb-2 mbr-black mbr-fonts-style mbr-semibold display-4"></h3>
+                            <h2 class="title2 mbr-fonts-style mbr-black mbr-semibold display-2">Gestisci i tuoi clienti</h2>
+                            <p class="text2 mbr-fonts-style mbr-black mbr-regular mbr-pt-2 display-7">Visualizza e gestisci l'andamento dei canali Youtube dei tuoi clienti</p>
+                            <div class="mbr-section-mine-btn mbr-pt-3">
+                            <a class="mine-btn-primary mine-btn display-4"  href="manager">
+                                <span class="mobi-mbri mobi-mbri-arrow-next mbr-iconfont mbr-iconfont-mine-btn">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="100%" height="100%">
+                                <path d="M4.6 22.6L15.2 12 4.6 1.4 6 0l12 12L6 24z"></path>
+                                </svg>
+                                </span>
+                                Inizia
+                                </a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <%end%>
+            <% if current_user.ruolo=="azienda" %>
+            <div class="mbr-col-lg-6 mbr-col-md-12 mbr-col-sm-12">
+                <div class="card-item2">
+                    <div class="title-wrap align-center">
+                        <div class="title-block">
+                            <h3 class="subtitle2 mbr-pb-2 mbr-black mbr-fonts-style mbr-semibold display-4"></h3>
+                            <h2 class="title2 mbr-fonts-style mbr-black mbr-semibold display-2">Controlla le tue affiliazioni</h2>
+                            <p class="text2 mbr-fonts-style mbr-black mbr-regular mbr-pt-2 display-7">Tieni sotto controllo le eventuali richieste di affiliazione di nuovi creator</p>
+                            <div class="mbr-section-mine-btn mbr-pt-3">
+                            <a class="mine-btn-primary mine-btn display-4"  href="/azienda/affiliazioni">
+                                <span class="mobi-mbri mobi-mbri-arrow-next mbr-iconfont mbr-iconfont-mine-btn">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="100%" height="100%">
+                                <path d="M4.6 22.6L15.2 12 4.6 1.4 6 0l12 12L6 24z"></path>
+                                </svg>
+                                </span>
+                                Inizia
+                                </a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="mbr-col-lg-6 mbr-col-md-12 mbr-col-sm-12">
+                <div class="card-item2">
+                    <div class="title-wrap align-center">
+                        <div class="title-block">
+                            <h3 class="subtitle2 mbr-pb-2 mbr-black mbr-fonts-style mbr-semibold display-4"></h3>
+                            <h2 class="title2 mbr-fonts-style mbr-black mbr-semibold display-2">Visualizza i tuoi creator</h2>
+                            <p class="text2 mbr-fonts-style mbr-black mbr-regular mbr-pt-2 display-7">Visualizza i creator che fanno parte della tua azienda</p>
+                            <div class="mbr-section-mine-btn mbr-pt-3">
+                            <a class="mine-btn-primary mine-btn display-4"  href="azienda">
+                                <span class="mobi-mbri mobi-mbri-arrow-next mbr-iconfont mbr-iconfont-mine-btn">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="100%" height="100%">
+                                <path d="M4.6 22.6L15.2 12 4.6 1.4 6 0l12 12L6 24z"></path>
+                                </svg>
+                                </span>
+                                Inizia
+                                </a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <%end%>
+
+        </div>
+    </div>
+</section>
+<%end %>
+
+<!--Social Network Sito Web-->
+<section class="mbr-section content1 cid-rsqoyhM5Ed" id="social04-5n">
+	<div class="mine-container">
+		<div class="mbr-row mbr-jc-c">
+			<div class="card mbr-col-sm-12 mbr-col-md-3 mbr-col-lg-2 md-pb">
+				<p class="mbr-text mbr-semibold mbr-fonts-style display-7">
+					Twitter</p>
+				<div class="iconfont-wrapper">
+					<span class="amp-iconfont fa-twitter fa"><svg width="100%" height="100%" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg" fill="currentColor"><path d="M1684 408q-67 98-162 167 1 14 1 42 0 130-38 259.5t-115.5 248.5-184.5 210.5-258 146-323 54.5q-271 0-496-145 35 4 78 4 225 0 401-138-105-2-188-64.5t-114-159.5q33 5 61 5 43 0 85-11-112-23-185.5-111.5t-73.5-205.5v-4q68 38 146 41-66-44-105-115t-39-154q0-88 44-163 121 149 294.5 238.5t371.5 99.5q-8-38-8-74 0-134 94.5-228.5t228.5-94.5q140 0 236 102 109-21 205-78-37 115-142 178 93-10 186-50z"></path></svg></span>
+				</div>
+			</div>
+			<div class="card mbr-col-sm-12 mbr-col-md-3 mbr-col-lg-2 md-pb">
+				<p class="mbr-text mbr-fonts-style mbr-semibold display-7">
+					Facebook</p>
+				<div class="iconfont-wrapper">
+					<span class="amp-iconfont fa-facebook-f fa"><svg width="100%" height="100%" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg" fill="currentColor"><path d="M1343 12v264h-157q-86 0-116 36t-30 108v189h293l-39 296h-254v759h-306v-759h-255v-296h255v-218q0-186 104-288.5t277-102.5q147 0 228 12z"></path></svg></span>
+				</div>
+			</div>
+			<div class="card mbr-col-sm-12 mbr-col-md-3 mbr-col-lg-2 md-pb">
+				<p class="mbr-text mbr-fonts-style mbr-semibold display-7">
+					Instagram</p>
+				<div class="iconfont-wrapper">
+					<span class="amp-iconfont fa-instagram fa"><svg width="100%" height="100%" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg" fill="currentColor"><path d="M1152 896q0-106-75-181t-181-75-181 75-75 181 75 181 181 75 181-75 75-181zm138 0q0 164-115 279t-279 115-279-115-115-279 115-279 279-115 279 115 115 279zm108-410q0 38-27 65t-65 27-65-27-27-65 27-65 65-27 65 27 27 65zm-502-220q-7 0-76.5-.5t-105.5 0-96.5 3-103 10-71.5 18.5q-50 20-88 58t-58 88q-11 29-18.5 71.5t-10 103-3 96.5 0 105.5.5 76.5-.5 76.5 0 105.5 3 96.5 10 103 18.5 71.5q20 50 58 88t88 58q29 11 71.5 18.5t103 10 96.5 3 105.5 0 76.5-.5 76.5.5 105.5 0 96.5-3 103-10 71.5-18.5q50-20 88-58t58-88q11-29 18.5-71.5t10-103 3-96.5 0-105.5-.5-76.5.5-76.5 0-105.5-3-96.5-10-103-18.5-71.5q-20-50-58-88t-88-58q-29-11-71.5-18.5t-103-10-96.5-3-105.5 0-76.5.5zm768 630q0 229-5 317-10 208-124 322t-322 124q-88 5-317 5t-317-5q-208-10-322-124t-124-322q-5-88-5-317t5-317q10-208 124-322t322-124q88-5 317-5t317 5q208 10 322 124t124 322q5 88 5 317z"></path></svg></span>
+				</div>
+			</div>
+			<div class="card mbr-col-sm-12 mbr-col-md-3 mbr-col-lg-2 md-pb">
+				<p class="mbr-text mbr-fonts-style mbr-semibold display-7">
+					Linkedin</p>
+				<div class="iconfont-wrapper">
+					<span class="amp-iconfont fa-linkedin fa"><svg width="100%" height="100%" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg" fill="currentColor"><path d="M477 625v991h-330v-991h330zm21-306q1 73-50.5 122t-135.5 49h-2q-82 0-132-49t-50-122q0-74 51.5-122.5t134.5-48.5 133 48.5 51 122.5zm1166 729v568h-329v-530q0-105-40.5-164.5t-126.5-59.5q-63 0-105.5 34.5t-63.5 85.5q-11 30-11 81v553h-329q2-399 2-647t-1-296l-1-48h329v144h-2q20-32 41-56t56.5-52 87-43.5 114.5-15.5q171 0 275 113.5t104 332.5z"></path></svg></span>
+				</div>
+			</div>
+			
+			
+		</div>
+	</div>
+</section>
+
+<!--Footer-->
+<section class="footer4 cid-rsqn8YGLn0" id="footer04-5f">
+    
+    
+    <div class="mine-container">
+
+
+        <div class="mbr-row mbr-jc-c">
+
+            <div class="mbr-col-lg-3 mbr-col-md-6 mbr-col-sm-12 md-pb align-left">
+                <h2 class="mbr-section-title mbr-black mbr-pb-2 mbr-fonts-style mbr-semibold display-5">Contatti</h2>
+                <p class="address mbr-black mbr-regular mbr-fonts-style display-4"><strong>Phone</strong>: +1 (0) 000 0000 001<br><strong>Address</strong>: Street Name,
+                    33<br>City, AA 09999, Country</p>
+            </div>
+
+
+
+
+            <div class="mbr-col-lg-3 mbr-col-md-6 mbr-col-sm-12 align-left">
+
+
+                <h2 class="mbr-section-title mbr-black mbr-fonts-style mbr-pb-2 mbr-semibold display-5">Rimaniamo in contatto:</h2>
+
+
+                <div class="mbr-col-lg-12 mbr-form" data-form-type="formoid">
+                    <form method="POST" class="mbr-form" action-xhr="https://formoid.net/api/amp-form/push" data-form-title="Form Name"><input type="hidden" name="email" data-form-email="true" value="E74rPotrXfR6WR6Ht6nt/q379qWXGfPP6i/xgPWqC5EOh39BPtqqMX/md9VLZR69/iNDjJ4/zlRCEzbGJdJ9fB3+H+PK6Gcc4088wh2DOCeFv9VlOZOunA3XdXTRPGcB">
+
+                        <div class="dragArea mbr-row">
+                            <div class="mbr-col mbr- mbr- mbr- field" data-for="form[data][0][1]">
+                                <input type="hidden" name="form[data][0][0]" value="email" id="form[data][0][0]-footer04-5f" data-form-field="">
+                                <input type="email" name="form[data][0][1]" placeholder="La tua Email" data-form-field="email" class="field-input display-7" required="required" value="" id="form[data][0][1]-footer04-5f">
+                            </div>
+                            <div class="mbr-col-auto" style=""><button type="submit" class="mine-btn mine-btn-primary display-7" onclick="">Iscrivimi</button></div>
+                        </div>
+                    </form>
+                </div>
+
+                <p class="text mbr-black mbr-pt-4 mbr-regular mbr-fonts-style display-4">Iscriviti alla nostra newsletter!<br></p>
+
+            </div>
+
+        </div>
+    </div>
+
+</section>
+
+</body>
+</html>

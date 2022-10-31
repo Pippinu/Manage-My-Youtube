@@ -1,0 +1,615 @@
+  [1m[35m (12.4ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY)[0m
+  [1m[35m (24.6ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to DeviseCreateUsers (20220509071456)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.6ms)[0m  [1m[35mCREATE TABLE "users" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "full_name" varchar, "uid" varchar, "avatar_url" varchar, "provider" varchar, "email" varchar DEFAULT '' NOT NULL, "encrypted_password" varchar DEFAULT '' NOT NULL, "reset_password_token" varchar, "reset_password_sent_at" datetime(6), "remember_created_at" datetime(6), "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_users_on_email" ON "users" ("email")[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_users_on_reset_password_token" ON "users" ("reset_password_token")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20220509071456"]]
+  [1m[36mTRANSACTION (3.1ms)[0m  [1m[36mcommit transaction[0m
+Migrating to AddRuoloToUser (20221018205629)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.7ms)[0m  [1m[35mALTER TABLE "users" ADD "ruolo" varchar[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20221018205629"]]
+  [1m[36mTRANSACTION (13.2ms)[0m  [1m[36mcommit transaction[0m
+Migrating to CreateActiveStorageTables (20221019163123)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE TABLE "active_storage_blobs" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "key" varchar NOT NULL, "filename" varchar NOT NULL, "content_type" varchar, "metadata" text, "service_name" varchar NOT NULL, "byte_size" bigint NOT NULL, "checksum" varchar, "created_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_active_storage_blobs_on_key" ON "active_storage_blobs" ("key")[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TABLE "active_storage_attachments" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar NOT NULL, "record_type" varchar NOT NULL, "record_id" bigint NOT NULL, "blob_id" bigint NOT NULL, "created_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_c3b3935057"
+FOREIGN KEY ("blob_id")
+  REFERENCES "active_storage_blobs" ("id")
+)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "index_active_storage_attachments_on_blob_id" ON "active_storage_attachments" ("blob_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_active_storage_attachments_uniqueness" ON "active_storage_attachments" ("record_type", "record_id", "name", "blob_id")[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TABLE "active_storage_variant_records" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "blob_id" bigint NOT NULL, "variation_digest" varchar NOT NULL, CONSTRAINT "fk_rails_993965df05"
+FOREIGN KEY ("blob_id")
+  REFERENCES "active_storage_blobs" ("id")
+)[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_active_storage_variant_records_uniqueness" ON "active_storage_variant_records" ("blob_id", "variation_digest")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20221019163123"]]
+  [1m[36mTRANSACTION (13.1ms)[0m  [1m[36mcommit transaction[0m
+Migrating to CreateReviews (20221024160412)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE TABLE "reviews" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "reviewer" varchar, "reviewed" varchar, "stars" integer, "testo" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20221024160412"]]
+  [1m[36mTRANSACTION (7.6ms)[0m  [1m[36mcommit transaction[0m
+Migrating to CreateAffiliations (20221025000407)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCREATE TABLE "affiliations" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "cliente" varchar, "manager" varchar, "status" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20221025000407"]]
+  [1m[36mTRANSACTION (24.4ms)[0m  [1m[36mcommit transaction[0m
+Migrating to TokenInfo (20221025070620)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.6ms)[0m  [1m[35mALTER TABLE "users" ADD "access_token" varchar[0m
+  [1m[35m (0.4ms)[0m  [1m[35mALTER TABLE "users" ADD "refresh_token" varchar[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20221025070620"]]
+  [1m[36mTRANSACTION (1.9ms)[0m  [1m[36mcommit transaction[0m
+Migrating to CreateCalendars (20221025074045)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE TABLE "calendars" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "calendarId" varchar DEFAULT '' NOT NULL, "summary" varchar, "userId" varchar, "managerId" varchar)[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20221025074045"]]
+  [1m[36mTRANSACTION (13.0ms)[0m  [1m[36mcommit transaction[0m
+Migrating to AddHashColumnCalendar (20221025144423)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.7ms)[0m  [1m[35mALTER TABLE "calendars" ADD "hash" varchar[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20221025144423"]]
+  [1m[36mTRANSACTION (13.2ms)[0m  [1m[36mcommit transaction[0m
+Migrating to AddAclCalendar (20221026083726)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.7ms)[0m  [1m[35mALTER TABLE "calendars" ADD "acl_id" varchar[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20221026083726"]]
+  [1m[36mTRANSACTION (7.5ms)[0m  [1m[36mcommit transaction[0m
+Migrating to ManagerIdCalendar (20221027094448)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE TEMPORARY TABLE "acalendars" ("id" integer NOT NULL PRIMARY KEY, "calendarId" varchar DEFAULT '' NOT NULL, "summary" varchar DEFAULT NULL, "userId" varchar DEFAULT NULL, "managerId" varchar DEFAULT NULL, "hash" varchar DEFAULT NULL, "acl_id" varchar DEFAULT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "acalendars" ("id","calendarId","summary","userId","managerId","hash","acl_id")
+                     SELECT "id","calendarId","summary","userId","managerId","hash","acl_id" FROM "calendars"[0m
+  [1m[35m (0.4ms)[0m  [1m[35mDROP TABLE "calendars"[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TABLE "calendars" ("id" integer NOT NULL PRIMARY KEY, "calendarId" varchar DEFAULT '' NOT NULL, "summary" varchar DEFAULT NULL, "userId" varchar DEFAULT NULL, "managerId" integer DEFAULT NULL, "hash" varchar DEFAULT NULL, "acl_id" varchar DEFAULT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "calendars" ("id","calendarId","summary","userId","managerId","hash","acl_id")
+                     SELECT "id","calendarId","summary","userId","managerId","hash","acl_id" FROM "acalendars"[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE "acalendars"[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20221027094448"]]
+  [1m[36mTRANSACTION (18.0ms)[0m  [1m[36mcommit transaction[0m
+Migrating to AddAziendaToAffiliations (20221027105536)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.9ms)[0m  [1m[35mALTER TABLE "affiliations" ADD "azienda" varchar[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20221027105536"]]
+  [1m[36mTRANSACTION (1.8ms)[0m  [1m[36mcommit transaction[0m
+Migrating to ReStringManagerId (20221027142342)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TEMPORARY TABLE "acalendars" ("id" integer NOT NULL PRIMARY KEY, "calendarId" varchar DEFAULT '' NOT NULL, "summary" varchar DEFAULT NULL, "userId" varchar DEFAULT NULL, "managerId" integer DEFAULT NULL, "hash" varchar DEFAULT NULL, "acl_id" varchar DEFAULT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "acalendars" ("id","calendarId","summary","userId","managerId","hash","acl_id")
+                     SELECT "id","calendarId","summary","userId","managerId","hash","acl_id" FROM "calendars"[0m
+  [1m[35m (0.4ms)[0m  [1m[35mDROP TABLE "calendars"[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE TABLE "calendars" ("id" integer NOT NULL PRIMARY KEY, "calendarId" varchar DEFAULT '' NOT NULL, "summary" varchar DEFAULT NULL, "userId" varchar DEFAULT NULL, "managerId" varchar DEFAULT NULL, "hash" varchar DEFAULT NULL, "acl_id" varchar DEFAULT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "calendars" ("id","calendarId","summary","userId","managerId","hash","acl_id")
+                     SELECT "id","calendarId","summary","userId","managerId","hash","acl_id" FROM "acalendars"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE "acalendars"[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20221027142342"]]
+  [1m[36mTRANSACTION (23.9ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.3ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["key", "environment"], ["value", "development"], ["created_at", "2022-10-28 13:21:32.887334"], ["updated_at", "2022-10-28 13:21:32.887334"]]
+  [1m[36mTRANSACTION (1.9ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Started GET "/" for 127.0.0.1 at 2022-10-30 22:12:58 +0100
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by PagesController#home as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering pages/home.html.erb within layouts/application
+  Rendered pages/home.html.erb within layouts/application (Duration: 3.9ms | Allocations: 1774)
+  Rendered layout layouts/application.html.erb (Duration: 455.3ms | Allocations: 122379)
+Completed 200 OK in 478ms (Views: 459.4ms | ActiveRecord: 0.0ms | Allocations: 128784)
+
+
+  
+ActionController::RoutingError (No route matches [GET] "/assets/images/mbr-1920x1080.jpg"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/assets/images/mbr-1920x1276.jpg"):
+  
+Started GET "/users/sign_in" for 127.0.0.1 at 2022-10-30 22:13:00 +0100
+Processing by Users::SessionsController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/sessions/new.html.erb within layouts/application (Duration: 10.6ms | Allocations: 4004)
+  Rendered layout layouts/application.html.erb (Duration: 15.4ms | Allocations: 6496)
+Completed 200 OK in 51ms (Views: 18.4ms | ActiveRecord: 1.0ms | Allocations: 28717)
+
+
+Started POST "/users/auth/google_oauth2" for 127.0.0.1 at 2022-10-30 22:13:02 +0100
+Started GET "/users/sign_up" for 127.0.0.1 at 2022-10-30 22:13:09 +0100
+Processing by Users::RegistrationsController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering devise/registrations/new.html.erb within layouts/application
+  Rendered devise/shared/_error_messages.html.erb (Duration: 1.3ms | Allocations: 235)
+  Rendered devise/shared/_error_messages.html.erb (Duration: 0.1ms | Allocations: 11)
+  Rendered devise/registrations/new.html.erb within layouts/application (Duration: 9.4ms | Allocations: 2907)
+  Rendered layout layouts/application.html.erb (Duration: 14.2ms | Allocations: 5409)
+Completed 200 OK in 19ms (Views: 17.0ms | ActiveRecord: 0.0ms | Allocations: 7182)
+
+
+Started POST "/users" for 127.0.0.1 at 2022-10-30 22:13:24 +0100
+Processing by Users::RegistrationsController#create as TURBO_STREAM
+  Parameters: {"authenticity_token"=>"[FILTERED]", "user"=>{"email"=>"p@p", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]", "ruolo"=>"cliente"}, "commit"=>"Signup"}
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "p@p"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.5ms)[0m  [1m[32mINSERT INTO "users" ("full_name", "uid", "avatar_url", "provider", "email", "encrypted_password", "reset_password_token", "reset_password_sent_at", "remember_created_at", "created_at", "updated_at", "ruolo", "access_token", "refresh_token") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["full_name", nil], ["uid", nil], ["avatar_url", nil], ["provider", nil], ["email", "p@p"], ["encrypted_password", "$2a$12$B6GrLiETVHUeiFeRiq7H..fHE4CjS7ZwYUIQayG8f59zywEOKte3G"], ["reset_password_token", nil], ["reset_password_sent_at", nil], ["remember_created_at", nil], ["created_at", "2022-10-30 21:13:25.055581"], ["updated_at", "2022-10-30 21:13:25.055581"], ["ruolo", "cliente"], ["access_token", nil], ["refresh_token", nil]]
+  [1m[36mTRANSACTION (2.6ms)[0m  [1m[36mcommit transaction[0m
+Redirected to http://localhost:3000/
+Completed 302 Found in 311ms (ActiveRecord: 3.4ms | Allocations: 17822)
+
+
+Started GET "/" for 127.0.0.1 at 2022-10-30 22:13:25 +0100
+Processing by PagesController#home as TURBO_STREAM
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/pages_controller.rb:3:in `home'
+  Rendering layout layouts/application.html.erb
+  Rendering pages/home.html.erb within layouts/application
+  Rendered pages/home.html.erb within layouts/application (Duration: 1.0ms | Allocations: 342)
+  Rendered layout layouts/application.html.erb (Duration: 6.0ms | Allocations: 2751)
+Completed 200 OK in 12ms (Views: 6.9ms | ActiveRecord: 0.4ms | Allocations: 4479)
+
+
+Started GET "/" for ::1 at 2022-10-30 22:13:35 +0100
+Processing by PagesController#home as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering pages/home.html.erb within layouts/application
+  Rendered pages/home.html.erb within layouts/application (Duration: 0.6ms | Allocations: 119)
+  Rendered layout layouts/application.html.erb (Duration: 5.6ms | Allocations: 2445)
+Completed 200 OK in 8ms (Views: 6.7ms | ActiveRecord: 0.0ms | Allocations: 2908)
+
+
+  
+ActionController::RoutingError (No route matches [GET] "/assets/images/mbr-1920x1080.jpg"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/assets/images/mbr-1920x1276.jpg"):
+  
+Started GET "/users/sign_in" for ::1 at 2022-10-30 22:13:37 +0100
+Processing by Users::SessionsController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/sessions/new.html.erb within layouts/application (Duration: 3.3ms | Allocations: 1123)
+  Rendered layout layouts/application.html.erb (Duration: 10.5ms | Allocations: 3427)
+Completed 200 OK in 14ms (Views: 11.7ms | ActiveRecord: 0.0ms | Allocations: 4162)
+
+
+Started GET "/users/sign_up" for ::1 at 2022-10-30 22:13:38 +0100
+Processing by Users::RegistrationsController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering devise/registrations/new.html.erb within layouts/application
+  Rendered devise/shared/_error_messages.html.erb (Duration: 0.1ms | Allocations: 14)
+  Rendered devise/shared/_error_messages.html.erb (Duration: 0.1ms | Allocations: 11)
+  Rendered devise/registrations/new.html.erb within layouts/application (Duration: 4.5ms | Allocations: 1282)
+  Rendered layout layouts/application.html.erb (Duration: 10.7ms | Allocations: 3581)
+Completed 200 OK in 14ms (Views: 11.9ms | ActiveRecord: 0.0ms | Allocations: 4248)
+
+
+Started POST "/users" for ::1 at 2022-10-30 22:13:51 +0100
+Processing by Users::RegistrationsController#create as TURBO_STREAM
+  Parameters: {"authenticity_token"=>"[FILTERED]", "user"=>{"email"=>"p1@p", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]", "ruolo"=>"cliente"}, "commit"=>"Signup"}
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "p1@p"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.4ms)[0m  [1m[32mINSERT INTO "users" ("full_name", "uid", "avatar_url", "provider", "email", "encrypted_password", "reset_password_token", "reset_password_sent_at", "remember_created_at", "created_at", "updated_at", "ruolo", "access_token", "refresh_token") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["full_name", nil], ["uid", nil], ["avatar_url", nil], ["provider", nil], ["email", "p1@p"], ["encrypted_password", "$2a$12$drUT7rUO.wC33UPLMr5PSuW9zaFz/lrZA64.CiqzO8nEOsa9JW1ou"], ["reset_password_token", nil], ["reset_password_sent_at", nil], ["remember_created_at", nil], ["created_at", "2022-10-30 21:13:51.307645"], ["updated_at", "2022-10-30 21:13:51.307645"], ["ruolo", "cliente"], ["access_token", nil], ["refresh_token", nil]]
+  [1m[36mTRANSACTION (5.1ms)[0m  [1m[36mcommit transaction[0m
+Redirected to http://localhost:3000/
+Completed 302 Found in 287ms (ActiveRecord: 5.8ms | Allocations: 5341)
+
+
+Started GET "/" for ::1 at 2022-10-30 22:13:51 +0100
+Processing by PagesController#home as TURBO_STREAM
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/pages_controller.rb:3:in `home'
+  Rendering layout layouts/application.html.erb
+  Rendering pages/home.html.erb within layouts/application
+  Rendered pages/home.html.erb within layouts/application (Duration: 0.9ms | Allocations: 291)
+  Rendered layout layouts/application.html.erb (Duration: 6.4ms | Allocations: 2598)
+Completed 200 OK in 11ms (Views: 7.3ms | ActiveRecord: 0.2ms | Allocations: 3753)
+
+
+Started GET "/profile" for ::1 at 2022-10-30 22:13:54 +0100
+Processing by ProfileController#index as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:4:in `require_user_logged_in!'
+  Rendering layout layouts/application.html.erb
+  Rendering profile/index.html.erb within layouts/application
+  [1m[36mActiveStorage::Attachment Load (0.7ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 2], ["record_type", "User"], ["name", "avatar"], ["LIMIT", 1]]
+  ↳ app/views/profile/index.html.erb:31
+  Rendered profile/index.html.erb within layouts/application (Duration: 31.3ms | Allocations: 9680)
+  Rendered layout layouts/application.html.erb (Duration: 37.6ms | Allocations: 12204)
+Completed 200 OK in 44ms (Views: 38.5ms | ActiveRecord: 1.5ms | Allocations: 14309)
+
+
+Started DELETE "/users/sign_out" for ::1 at 2022-10-30 22:13:58 +0100
+Processing by Users::SessionsController#destroy as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]"}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+Redirected to http://localhost:3000/users/sign_in
+Completed 302 Found in 24ms (ActiveRecord: 0.4ms | Allocations: 8014)
+
+
+Started GET "/users/sign_in" for ::1 at 2022-10-30 22:13:58 +0100
+Processing by Users::SessionsController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/sessions/new.html.erb within layouts/application (Duration: 3.0ms | Allocations: 1168)
+  Rendered layout layouts/application.html.erb (Duration: 8.7ms | Allocations: 3565)
+Completed 200 OK in 12ms (Views: 9.9ms | ActiveRecord: 0.0ms | Allocations: 4409)
+
+
+Started GET "/users/sign_up" for ::1 at 2022-10-30 22:14:01 +0100
+Processing by Users::RegistrationsController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering devise/registrations/new.html.erb within layouts/application
+  Rendered devise/shared/_error_messages.html.erb (Duration: 0.1ms | Allocations: 14)
+  Rendered devise/shared/_error_messages.html.erb (Duration: 0.1ms | Allocations: 11)
+  Rendered devise/registrations/new.html.erb within layouts/application (Duration: 4.2ms | Allocations: 1286)
+  Rendered layout layouts/application.html.erb (Duration: 10.4ms | Allocations: 3585)
+Completed 200 OK in 14ms (Views: 11.9ms | ActiveRecord: 0.0ms | Allocations: 4233)
+
+
+Started POST "/users" for ::1 at 2022-10-30 22:14:16 +0100
+Processing by Users::RegistrationsController#create as TURBO_STREAM
+  Parameters: {"authenticity_token"=>"[FILTERED]", "user"=>{"email"=>"p@p2", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]", "ruolo"=>"manager"}, "commit"=>"Signup"}
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "p@p2"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO "users" ("full_name", "uid", "avatar_url", "provider", "email", "encrypted_password", "reset_password_token", "reset_password_sent_at", "remember_created_at", "created_at", "updated_at", "ruolo", "access_token", "refresh_token") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["full_name", nil], ["uid", nil], ["avatar_url", nil], ["provider", nil], ["email", "p@p2"], ["encrypted_password", "$2a$12$uyA1cFOiHBNMh0cub/fLYugq77rpulCRTBgzyy.ry77i7CuQoX16G"], ["reset_password_token", nil], ["reset_password_sent_at", nil], ["remember_created_at", nil], ["created_at", "2022-10-30 21:14:16.909747"], ["updated_at", "2022-10-30 21:14:16.909747"], ["ruolo", "manager"], ["access_token", nil], ["refresh_token", nil]]
+  [1m[36mTRANSACTION (5.3ms)[0m  [1m[36mcommit transaction[0m
+Redirected to http://localhost:3000/
+Completed 302 Found in 296ms (ActiveRecord: 5.8ms | Allocations: 5452)
+
+
+Started GET "/" for ::1 at 2022-10-30 22:14:16 +0100
+Processing by PagesController#home as TURBO_STREAM
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/pages_controller.rb:3:in `home'
+  Rendering layout layouts/application.html.erb
+  Rendering pages/home.html.erb within layouts/application
+  Rendered pages/home.html.erb within layouts/application (Duration: 0.8ms | Allocations: 293)
+  Rendered layout layouts/application.html.erb (Duration: 5.4ms | Allocations: 2599)
+Completed 200 OK in 10ms (Views: 6.5ms | ActiveRecord: 0.2ms | Allocations: 3803)
+
+
+  
+ActionController::RoutingError (No route matches [GET] "/assets/images/mbr-1920x1080.jpg"):
+  
+Started GET "/cliente" for 127.0.0.1 at 2022-10-30 22:14:20 +0100
+Processing by ClienteController#search as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:4:in `require_user_logged_in!'
+  Rendering layout layouts/application.html.erb
+  Rendering cliente/search.html.erb within layouts/application
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/views/cliente/search.html.erb:92
+  [1m[36mActiveStorage::Attachment Load (0.2ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 3], ["record_type", "User"], ["name", "avatar"], ["LIMIT", 1]]
+  ↳ app/views/cliente/search.html.erb:97
+  Rendered cliente/search.html.erb within layouts/application (Duration: 20.5ms | Allocations: 2801)
+  Rendered layout layouts/application.html.erb (Duration: 41.1ms | Allocations: 5289)
+Completed 200 OK in 63ms (Views: 47.3ms | ActiveRecord: 0.8ms | Allocations: 7404)
+
+
+Started GET "/cliente/managerprofile?id=3" for 127.0.0.1 at 2022-10-30 22:14:21 +0100
+Processing by ClienteController#visualize as HTML
+  Parameters: {"id"=>"3"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:4:in `require_user_logged_in!'
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/cliente_controller.rb:15:in `visualize'
+  Rendering layout layouts/application.html.erb
+  Rendering cliente/visualize.html.erb within layouts/application
+  [1m[36mActiveStorage::Attachment Load (0.2ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 3], ["record_type", "User"], ["name", "avatar"], ["LIMIT", 1]]
+  ↳ app/views/cliente/visualize.html.erb:87
+  [1m[36mAffiliation Load (0.4ms)[0m  [1m[34mSELECT "affiliations".* FROM "affiliations" WHERE "affiliations"."cliente" = ? AND "affiliations"."manager" = ? LIMIT ?[0m  [["cliente", "1"], ["manager", "3"], ["LIMIT", 1]]
+  ↳ app/views/cliente/visualize.html.erb:96
+  Rendered cliente/visualize.html.erb within layouts/application (Duration: 17.7ms | Allocations: 3569)
+  Rendered layout layouts/application.html.erb (Duration: 23.2ms | Allocations: 6004)
+Completed 200 OK in 34ms (Views: 23.6ms | ActiveRecord: 1.3ms | Allocations: 8468)
+
+
+Started GET "/affiliations/new?manager=3" for 127.0.0.1 at 2022-10-30 22:14:22 +0100
+Processing by AffiliationsController#new as HTML
+  Parameters: {"manager"=>"3"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/affiliations_controller.rb:19:in `new'
+  Rendering layout layouts/application.html.erb
+  Rendering affiliations/new.html.erb within layouts/application
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/views/affiliations/new.html.erb:99
+  [1m[36mActiveStorage::Attachment Load (0.2ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 3], ["record_type", "User"], ["name", "avatar"], ["LIMIT", 1]]
+  ↳ app/views/affiliations/new.html.erb:99
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/views/affiliations/new.html.erb:100
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/views/affiliations/new.html.erb:106
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/views/affiliations/new.html.erb:107
+  Rendered affiliations/_form.html.erb (Duration: 3.4ms | Allocations: 1269)
+  Rendered affiliations/new.html.erb within layouts/application (Duration: 18.1ms | Allocations: 5347)
+  Rendered layout layouts/application.html.erb (Duration: 23.1ms | Allocations: 7837)
+Completed 200 OK in 127ms (Views: 24.7ms | ActiveRecord: 1.2ms | Allocations: 24178)
+
+
+Started POST "/affiliations" for 127.0.0.1 at 2022-10-30 22:14:24 +0100
+Processing by AffiliationsController#create as TURBO_STREAM
+  Parameters: {"authenticity_token"=>"[FILTERED]", "affiliation"=>{"cliente"=>"1", "manager"=>"3", "azienda"=>"", "status"=>"pending"}, "commit"=>"Create Affiliation"}
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/affiliations_controller.rb:48:in `block in create'
+  [1m[36mAffiliation Create (0.5ms)[0m  [1m[32mINSERT INTO "affiliations" ("cliente", "manager", "status", "created_at", "updated_at", "azienda") VALUES (?, ?, ?, ?, ?, ?)[0m  [["cliente", "1"], ["manager", "3"], ["status", "pending"], ["created_at", "2022-10-30 21:14:24.142385"], ["updated_at", "2022-10-30 21:14:24.142385"], ["azienda", ""]]
+  ↳ app/controllers/affiliations_controller.rb:48:in `block in create'
+  [1m[36mTRANSACTION (11.7ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/affiliations_controller.rb:48:in `block in create'
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/affiliations_controller.rb:49:in `block in create'
+Redirected to http://localhost:3000/cliente/managerprofile?id=3
+Completed 302 Found in 24ms (ActiveRecord: 12.5ms | Allocations: 3288)
+
+
+Started GET "/cliente/managerprofile?id=3" for 127.0.0.1 at 2022-10-30 22:14:24 +0100
+Processing by ClienteController#visualize as TURBO_STREAM
+  Parameters: {"id"=>"3"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:4:in `require_user_logged_in!'
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/cliente_controller.rb:15:in `visualize'
+  Rendering layout layouts/application.html.erb
+  Rendering cliente/visualize.html.erb within layouts/application
+  [1m[36mActiveStorage::Attachment Load (0.5ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 3], ["record_type", "User"], ["name", "avatar"], ["LIMIT", 1]]
+  ↳ app/views/cliente/visualize.html.erb:87
+  [1m[36mAffiliation Load (0.2ms)[0m  [1m[34mSELECT "affiliations".* FROM "affiliations" WHERE "affiliations"."cliente" = ? AND "affiliations"."manager" = ? LIMIT ?[0m  [["cliente", "1"], ["manager", "3"], ["LIMIT", 1]]
+  ↳ app/views/cliente/visualize.html.erb:96
+  Rendered cliente/visualize.html.erb within layouts/application (Duration: 7.8ms | Allocations: 1777)
+  Rendered layout layouts/application.html.erb (Duration: 13.3ms | Allocations: 4068)
+Completed 200 OK in 20ms (Views: 13.5ms | ActiveRecord: 1.1ms | Allocations: 5675)
+
+
+Started DELETE "/users/sign_out" for 127.0.0.1 at 2022-10-30 22:14:55 +0100
+Processing by Users::SessionsController#destroy as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+Redirected to http://localhost:3000/users/sign_in
+Completed 302 Found in 8ms (ActiveRecord: 0.2ms | Allocations: 1824)
+
+
+Started GET "/users/sign_in" for 127.0.0.1 at 2022-10-30 22:14:55 +0100
+Processing by Users::SessionsController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/sessions/new.html.erb within layouts/application (Duration: 2.4ms | Allocations: 1120)
+  Rendered layout layouts/application.html.erb (Duration: 6.6ms | Allocations: 3419)
+Completed 200 OK in 10ms (Views: 7.6ms | ActiveRecord: 0.0ms | Allocations: 4158)
+
+
+Started GET "/" for 127.0.0.1 at 2022-10-31 10:32:26 +0100
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by PagesController#home as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering pages/home.html.erb within layouts/application
+  Rendered pages/home.html.erb within layouts/application (Duration: 4.1ms | Allocations: 1774)
+  Rendered layout layouts/application.html.erb (Duration: 198.1ms | Allocations: 39324)
+Completed 200 OK in 223ms (Views: 203.4ms | ActiveRecord: 0.0ms | Allocations: 48636)
+
+
+  
+ActionController::RoutingError (No route matches [GET] "/assets/images/mbr-1920x1080.jpg"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/assets/images/mbr-1920x1276.jpg"):
+  
+Started GET "/users/sign_in" for 127.0.0.1 at 2022-10-31 10:32:28 +0100
+Processing by Users::SessionsController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/sessions/new.html.erb within layouts/application (Duration: 10.0ms | Allocations: 4005)
+  Rendered layout layouts/application.html.erb (Duration: 14.8ms | Allocations: 6514)
+Completed 200 OK in 48ms (Views: 17.7ms | ActiveRecord: 1.2ms | Allocations: 28730)
+
+
+Started POST "/users/auth/google_oauth2" for 127.0.0.1 at 2022-10-31 10:32:29 +0100
+Started GET "/users/auth/google_oauth2/callback?state=bfb4c6360855f37feae60f920493735e037fb6cbbfee7588&code=4/0ARtbsJponYDEMhLmPj_ovO6Ho85qAv7vHz7apyeGdgFcs8MN8B3I_mhsY91hNRIK8D5srQ&scope=email%20profile%20https://www.googleapis.com/auth/calendar.settings.readonly%20https://www.googleapis.com/auth/calendar.events.readonly%20https://www.googleapis.com/auth/calendar.events%20https://www.googleapis.com/auth/calendar.readonly%20https://www.googleapis.com/auth/calendar%20openid%20https://www.googleapis.com/auth/userinfo.profile%20https://www.googleapis.com/auth/userinfo.email&authuser=0&hd=studenti.uniroma1.it&prompt=consent" for 127.0.0.1 at 2022-10-31 10:32:39 +0100
+Processing by Users::OmniauthCallbacksController#failure as HTML
+  Parameters: {"state"=>"bfb4c6360855f37feae60f920493735e037fb6cbbfee7588", "code"=>"4/0ARtbsJponYDEMhLmPj_ovO6Ho85qAv7vHz7apyeGdgFcs8MN8B3I_mhsY91hNRIK8D5srQ", "scope"=>"email profile https://www.googleapis.com/auth/calendar.settings.readonly https://www.googleapis.com/auth/calendar.events.readonly https://www.googleapis.com/auth/calendar.events https://www.googleapis.com/auth/calendar.readonly https://www.googleapis.com/auth/calendar openid https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email", "authuser"=>"0", "hd"=>"studenti.uniroma1.it", "prompt"=>"consent"}
+Redirected to http://127.0.0.1:3000/users/sign_in
+Completed 302 Found in 5ms (ActiveRecord: 0.0ms | Allocations: 2109)
+
+
+Started GET "/users/sign_in" for 127.0.0.1 at 2022-10-31 10:32:39 +0100
+Processing by Users::SessionsController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/sessions/new.html.erb within layouts/application (Duration: 2.1ms | Allocations: 1172)
+  Rendered layout layouts/application.html.erb (Duration: 5.6ms | Allocations: 3571)
+Completed 200 OK in 8ms (Views: 6.5ms | ActiveRecord: 0.0ms | Allocations: 4432)
+
+
+Started GET "/" for 127.0.0.1 at 2022-10-31 10:33:52 +0100
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by PagesController#home as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering pages/home.html.erb within layouts/application
+  Rendered pages/home.html.erb within layouts/application (Duration: 4.0ms | Allocations: 1774)
+  Rendered layout layouts/application.html.erb (Duration: 73.4ms | Allocations: 39122)
+Completed 200 OK in 100ms (Views: 78.6ms | ActiveRecord: 0.0ms | Allocations: 45677)
+
+
+  
+ActionController::RoutingError (No route matches [GET] "/assets/images/mbr-1920x1080.jpg"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/assets/images/mbr-1920x1276.jpg"):
+  
+Started GET "/users/sign_in" for 127.0.0.1 at 2022-10-31 10:33:53 +0100
+Processing by Users::SessionsController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/sessions/new.html.erb within layouts/application (Duration: 10.5ms | Allocations: 4006)
+  Rendered layout layouts/application.html.erb (Duration: 15.2ms | Allocations: 6516)
+Completed 200 OK in 56ms (Views: 18.7ms | ActiveRecord: 2.0ms | Allocations: 28756)
+
+
+Started POST "/users/auth/google_oauth2" for 127.0.0.1 at 2022-10-31 10:33:54 +0100
+Processing by Users::OmniauthCallbacksController#failure as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "commit"=>"Accedi con Google"}
+Redirected to http://127.0.0.1:3000/users/sign_in
+Completed 302 Found in 7ms (ActiveRecord: 0.0ms | Allocations: 2219)
+
+
+Started GET "/users/sign_in" for 127.0.0.1 at 2022-10-31 10:33:55 +0100
+Processing by Users::SessionsController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/sessions/new.html.erb within layouts/application (Duration: 2.8ms | Allocations: 1162)
+  Rendered layout layouts/application.html.erb (Duration: 7.6ms | Allocations: 3567)
+Completed 200 OK in 11ms (Views: 9.4ms | ActiveRecord: 0.0ms | Allocations: 4459)
+
+
+Started POST "/users/auth/google_oauth2" for 127.0.0.1 at 2022-10-31 10:33:57 +0100
+Processing by Users::OmniauthCallbacksController#failure as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "commit"=>"Accedi con Google"}
+Redirected to http://127.0.0.1:3000/users/sign_in
+Completed 302 Found in 3ms (ActiveRecord: 0.0ms | Allocations: 389)
+
+
+Started GET "/users/sign_in" for 127.0.0.1 at 2022-10-31 10:33:57 +0100
+Processing by Users::SessionsController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/sessions/new.html.erb within layouts/application (Duration: 4.2ms | Allocations: 1097)
+  Rendered layout layouts/application.html.erb (Duration: 8.8ms | Allocations: 3395)
+Completed 200 OK in 11ms (Views: 9.9ms | ActiveRecord: 0.0ms | Allocations: 4163)
+
+
+Started GET "/" for 127.0.0.1 at 2022-10-31 10:36:11 +0100
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by PagesController#home as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering pages/home.html.erb within layouts/application
+  Rendered pages/home.html.erb within layouts/application (Duration: 3.2ms | Allocations: 1774)
+  Rendered layout layouts/application.html.erb (Duration: 163.6ms | Allocations: 38907)
+Completed 200 OK in 180ms (Views: 167.0ms | ActiveRecord: 0.0ms | Allocations: 45479)
+
+
+Started GET "/users/sign_in" for 127.0.0.1 at 2022-10-31 10:36:12 +0100
+Processing by Users::SessionsController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/sessions/new.html.erb within layouts/application (Duration: 9.0ms | Allocations: 4202)
+  Rendered layout layouts/application.html.erb (Duration: 13.1ms | Allocations: 6694)
+Completed 200 OK in 55ms (Views: 15.4ms | ActiveRecord: 1.2ms | Allocations: 28946)
+
+
+Started POST "/users/auth/google_oauth2" for 127.0.0.1 at 2022-10-31 10:36:13 +0100
+Started GET "/users/auth/google_oauth2/callback?state=35cb08713c3ab0e1e9e873ef8d5adc023c902b5d8ffcc9c6&code=4/0ARtbsJofO3iv8y1pKjFF7A2LTLxAXQ_9z8zximbYO9L_rqsoOc2evAikJLKwmsY7LR_Vpw&scope=email%20profile%20https://www.googleapis.com/auth/calendar.settings.readonly%20https://www.googleapis.com/auth/calendar.events.readonly%20https://www.googleapis.com/auth/calendar.events%20https://www.googleapis.com/auth/calendar.readonly%20https://www.googleapis.com/auth/calendar%20openid%20https://www.googleapis.com/auth/userinfo.profile%20https://www.googleapis.com/auth/userinfo.email&authuser=0&hd=studenti.uniroma1.it&prompt=consent" for 127.0.0.1 at 2022-10-31 10:36:22 +0100
+Processing by Users::OmniauthCallbacksController#google_oauth2 as HTML
+  Parameters: {"state"=>"35cb08713c3ab0e1e9e873ef8d5adc023c902b5d8ffcc9c6", "code"=>"4/0ARtbsJofO3iv8y1pKjFF7A2LTLxAXQ_9z8zximbYO9L_rqsoOc2evAikJLKwmsY7LR_Vpw", "scope"=>"email profile https://www.googleapis.com/auth/calendar.settings.readonly https://www.googleapis.com/auth/calendar.events.readonly https://www.googleapis.com/auth/calendar.events https://www.googleapis.com/auth/calendar.readonly https://www.googleapis.com/auth/calendar openid https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email", "authuser"=>"0", "hd"=>"studenti.uniroma1.it", "prompt"=>"consent"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."provider" = ? AND "users"."uid" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["provider", "google_oauth2"], ["uid", "112636774237264231673"], ["LIMIT", 1]]
+  ↳ app/models/user.rb:8:in `from_omniauth'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/models/user.rb:8:in `from_omniauth'
+  [1m[36mUser Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "desilvestri.1895042@studenti.uniroma1.it"], ["LIMIT", 1]]
+  ↳ app/models/user.rb:8:in `from_omniauth'
+  [1m[36mUser Create (0.4ms)[0m  [1m[32mINSERT INTO "users" ("full_name", "uid", "avatar_url", "provider", "email", "encrypted_password", "reset_password_token", "reset_password_sent_at", "remember_created_at", "created_at", "updated_at", "ruolo", "access_token", "refresh_token") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["full_name", "stefano de silvestri"], ["uid", "112636774237264231673"], ["avatar_url", "https://lh3.googleusercontent.com/a/ALm5wu3b2h3SGt2eBfdeueb9C53WEVSoLK40DFQi88Y=s96-c"], ["provider", "google_oauth2"], ["email", "desilvestri.1895042@studenti.uniroma1.it"], ["encrypted_password", "$2a$12$anLU.6Ifxtp9g0Sclmtn2eO53LR05Ea9QVgWpNCXZRVjHNPvYWIPO"], ["reset_password_token", nil], ["reset_password_sent_at", nil], ["remember_created_at", nil], ["created_at", "2022-10-31 09:36:23.500889"], ["updated_at", "2022-10-31 09:36:23.500889"], ["ruolo", nil], ["access_token", "ya29.a0Aa4xrXMkWw5ftuKp9m4-f47nHTRVmfrEiUzbdOnRAiWkNGg6ZeIKHqSRBT-V2R7QJ5q99hQ_k9aDiyIaU9gEKshMc_1wUs5ZhOAFuSyXL7DkZcr933JH_IQTakg0wVYv-niwv0peFgyjn-6bjC4U0Szj9RzyaCgYKATASARMSFQEjDvL9kLMv1xewRbfq0Q9nTlT7pg0163"], ["refresh_token", "1//096gwZW-1vw-YCgYIARAAGAkSNgF-L9Irj9nKKO-drUf68WoSefqaG6GcSdJVgRLyEGYuwAYf2KMXYSAvodQcWP5pbreogSF6Ug"]]
+  ↳ app/models/user.rb:8:in `from_omniauth'
+  [1m[36mTRANSACTION (4.8ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/models/user.rb:8:in `from_omniauth'
+Redirected to http://127.0.0.1:3000/
+Completed 302 Found in 373ms (ActiveRecord: 5.7ms | Allocations: 11222)
+
+
+Started GET "/" for 127.0.0.1 at 2022-10-31 10:36:23 +0100
+Processing by PagesController#home as HTML
+  [1m[36mUser Load (1.7ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 4], ["LIMIT", 1]]
+  ↳ app/controllers/pages_controller.rb:3:in `home'
+Redirected to http://127.0.0.1:3000/users/edit
+Completed 302 Found in 10ms (ActiveRecord: 1.7ms | Allocations: 1227)
+
+
+Started GET "/users/edit" for 127.0.0.1 at 2022-10-31 10:36:23 +0100
+Processing by Users::RegistrationsController#edit as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 4], ["LIMIT", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering devise/registrations/edit.html.erb within layouts/application
+  [1m[36mActiveStorage::Attachment Load (0.4ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 4], ["record_type", "User"], ["name", "avatar"], ["LIMIT", 1]]
+  ↳ app/views/devise/registrations/edit.html.erb:31
+  Rendered devise/registrations/edit.html.erb within layouts/application (Duration: 23.4ms | Allocations: 12199)
+  Rendered layout layouts/application.html.erb (Duration: 27.8ms | Allocations: 14719)
+Completed 200 OK in 35ms (Views: 30.1ms | ActiveRecord: 1.0ms | Allocations: 17449)
+
+
+Started PUT "/users" for 127.0.0.1 at 2022-10-31 10:36:35 +0100
+Processing by Users::RegistrationsController#update as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "user"=>{"full_name"=>"stefano de silvestri", "email"=>"desilvestri.1895042@studenti.uniroma1.it", "current_password"=>"[FILTERED]", "ruolo"=>"manager"}, "commit"=>"Modifica"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/users/registrations_controller.rb:37:in `update_resource'
+  [1m[36mUser Update (0.3ms)[0m  [1m[33mUPDATE "users" SET "updated_at" = ?, "ruolo" = ? WHERE "users"."id" = ?[0m  [["updated_at", "2022-10-31 09:36:35.692771"], ["ruolo", "manager"], ["id", 4]]
+  ↳ app/controllers/users/registrations_controller.rb:37:in `update_resource'
+  [1m[36mTRANSACTION (7.9ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/users/registrations_controller.rb:37:in `update_resource'
+Redirected to http://127.0.0.1:3000/
+Completed 302 Found in 28ms (ActiveRecord: 8.7ms | Allocations: 7686)
+
+
+Started GET "/" for 127.0.0.1 at 2022-10-31 10:36:35 +0100
+Processing by PagesController#home as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 4], ["LIMIT", 1]]
+  ↳ app/controllers/pages_controller.rb:3:in `home'
+  Rendering layout layouts/application.html.erb
+  Rendering pages/home.html.erb within layouts/application
+  Rendered pages/home.html.erb within layouts/application (Duration: 1.2ms | Allocations: 339)
+  Rendered layout layouts/application.html.erb (Duration: 6.5ms | Allocations: 2755)
+Completed 200 OK in 12ms (Views: 7.7ms | ActiveRecord: 0.3ms | Allocations: 4127)
+
+
+  
+ActionController::RoutingError (No route matches [GET] "/assets/images/mbr-1920x1080.jpg"):
+  
+Started GET "/manager/affiliazioni" for 127.0.0.1 at 2022-10-31 10:36:56 +0100
+Processing by ManagerController#affiliazioni as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 4], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:4:in `require_user_logged_in!'
+  Rendering layout layouts/application.html.erb
+  Rendering manager/affiliazioni.html.erb within layouts/application
+  [1m[36mAffiliation Load (0.4ms)[0m  [1m[34mSELECT "affiliations".* FROM "affiliations"[0m
+  ↳ app/views/manager/affiliazioni.html.erb:92
+  Rendered manager/affiliazioni.html.erb within layouts/application (Duration: 19.6ms | Allocations: 16653)
+  Rendered layout layouts/application.html.erb (Duration: 23.8ms | Allocations: 19154)
+Completed 200 OK in 35ms (Views: 26.2ms | ActiveRecord: 1.2ms | Allocations: 21691)
+
+
+Started DELETE "/users/sign_out" for 127.0.0.1 at 2022-10-31 10:36:59 +0100
+Processing by Users::SessionsController#destroy as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 4], ["LIMIT", 1]]
+Redirected to http://127.0.0.1:3000/users/sign_in
+Completed 302 Found in 16ms (ActiveRecord: 0.3ms | Allocations: 2695)
+
+
+Started GET "/users/sign_in" for 127.0.0.1 at 2022-10-31 10:36:59 +0100
+Processing by Users::SessionsController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/sessions/new.html.erb within layouts/application (Duration: 3.4ms | Allocations: 1168)
+  Rendered layout layouts/application.html.erb (Duration: 7.6ms | Allocations: 3565)
+Completed 200 OK in 10ms (Views: 8.6ms | ActiveRecord: 0.0ms | Allocations: 4397)
+
+

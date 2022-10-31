@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html amp >
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+  
+  <title>ManageMyYoutube</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" rel="stylesheet">
+
+</head>
+<body>
+  <section style="background-color: white;">
+    <div class="container py-5">
+      <%def withoutLast5(user)
+          if current_user.avatar_url
+            return current_user.avatar_url[0..-6]+"s580-c"
+          else 
+            return "https://blogtimenow.com/wp-content/uploads/2014/06/hide-facebook-profile-picture-notification.jpg"
+          end
+        end    
+      %>
+
+      <div class="row">
+        <div class="col-lg-4">
+          <div class="card mb-4">
+            <div class="card-body text-center">
+              <% if !current_user.avatar.attached?%>
+                <img src="<%=withoutLast5(current_user.avatar_url)%>" alt="avatar"
+                class="rounded-circle" style="width: 150px;">
+              <% else %>
+                <%= image_tag current_user.avatar,class:"rounded-circle",height:150,width:150 %>
+              <%end%>
+              <h5 class="my-3 text-capitalize"><%= current_user.full_name %></h5>
+              <p class="text-muted mb-1 text-capitalize"><%= current_user.ruolo %></p>
+
+            </div>
+          </div>
+          <div class="card mb-4 mb-lg-0">
+            <div class="card-body p-0">
+              <ul class="list-group list-group-flush rounded-3">
+                <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                  <i class="fas fa-globe fa-lg text-warning"></i>
+                  <p class="mb-0">www.ilmiositoweb.com</p>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                  <i class="fab fa-youtube fa-lg" style="color: #333333;"></i>
+                  <p class="mb-0">CanaleYoutube</p>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-8">
+          <div class="card mb-4">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Nome</p>
+                </div>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0 text-capitalize"><%= current_user.full_name %></p>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Email</p>
+                </div>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0"><%= current_user.email %></p>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Ruolo</p>
+                </div>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0 text-capitalize"><%=current_user.ruolo%></p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+
+                  <%= link_to "Modifica Profilo", edit_user_registration_path, class:"linkupdate" %>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</body>
+</html>

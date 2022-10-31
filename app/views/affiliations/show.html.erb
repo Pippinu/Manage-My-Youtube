@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @affiliation %>
+
+<div>
+  <%= link_to "Edit this affiliation", edit_affiliation_path(@affiliation) %> |
+  <%= link_to "Back to affiliations", affiliations_path %>
+
+  <%= button_to "Destroy this affiliation", @affiliation, method: :delete %>
+</div>

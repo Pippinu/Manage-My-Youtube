@@ -1,0 +1,64 @@
+<div id="<%= dom_id review %>">
+  <div class="container">
+
+    <%def withoutLast5(userUrl)
+        if userUrl
+          return userUrl[0..-6]+"s580-c"
+        else 
+          return "https://blogtimenow.com/wp-content/uploads/2014/06/hide-facebook-profile-picture-notification.jpg"
+        end
+      end    
+    %>
+    
+    <div class="review-list">
+        <ul>
+            <li>
+                <div class="d-flex">
+                    <div class="left px-4">
+                        <span>
+                        <% if !User.find(review.reviewer).avatar.attached?%>
+                          <img src="<%=withoutLast5(User.find(review.reviewer).avatar_url)%>" alt="avatar"
+                          class="rounded-circle" style="width: 50px;">
+                        <% else %>
+                          <%= image_tag User.find(review.reviewer).avatar,class:"rounded-circle",height:50,width:50 %>
+                        <%end%>
+                        </span>
+                    </div>
+                    <div class="right">
+                        <h4 class="text-capitalize">
+                            <%= User.find(review.reviewer).full_name%>
+                            <span class="gig-rating text-body-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1792 1792" width="15" height="15">
+                                    <path
+                                        fill="currentColor"
+                                        d="M1728 647q0 22-26 48l-363 354 86 500q1 7 1 20 0 21-10.5 35.5t-30.5 14.5q-19 0-40-12l-449-236-449 236q-22 12-40 12-21 0-31.5-14.5t-10.5-35.5q0-6 2-20l86-500-364-354q-25-27-25-48 0-37 56-46l502-73 225-455q19-41 49-41t49 41l225 455 502 73q56 9 56 46z"
+                                    ></path>
+                                </svg>
+                                <%=review.stars%>.0
+                            </span>
+                        </h4>
+                        <div class="country d-flex align-items-center">
+                        </div>
+                        <div class="review-description">
+                            <p>
+                                <%=review.testo%>
+                            </p>
+                        </div>
+                        <span class="publish py-3 d-inline-block w-100"></span>
+                    </div>
+                </div>
+                <% if current_user.id==review.reviewer.to_i%>
+                <div class="d-flex flex-row gap-3">
+                  <%= button_to "Elimina questa recensione", review, method: :delete, class:"btn btn-md btn-danger" %>
+                  <a href="/reviews/<%=review.id%>/edit"><button type="button" class="btn btn-outline-danger">Modifica questa recensione</button></a>
+                </div>
+                <% end%>
+            </li>
+        </ul>
+    </div>
+    
+</div>
+
+</div>
+
+

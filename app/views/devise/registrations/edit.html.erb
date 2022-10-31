@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html amp >
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+  
+  <title>ManageMyYoutube</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" rel="stylesheet">
+
+</head>
+<body>
+    <section style="background-color: white;">
+  <div class="container py-5">
+    <%def withoutLast5(user)
+        if current_user.avatar_url
+          return current_user.avatar_url[0..-6]+"s580-c"
+        else 
+          return "https://blogtimenow.com/wp-content/uploads/2014/06/hide-facebook-profile-picture-notification.jpg"
+        end
+      end    
+    %>
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }, data: {turbo: "false"}) do |f| %>
+    <div class="row">
+      <div class="col-lg-4">
+        <div class="card mb-4">
+          <div class="field">
+          <%if resource.avatar.attached? %>
+            <%= image_tag resource.avatar,class:"rounded-circle",height:150,width:150 %>
+          <%else%>
+            <%= image_tag withoutLast5(current_user), height:100,width:100, class:"rounded-circle"%>
+          <%end%>
+        </div>
+
+      <div class="field">
+        <%= f.file_field :avatar%>
+      </div>
+        </div>
+      </div>
+      
+        <div class="col-lg-8">
+          
+            <div class="card mb-4">
+              <div class="card-body">
+
+                <div class="row">
+                  <div class="col-sm-3 mt-2">
+                    <p class="mb-0">Nome</p>
+                  </div>
+                  <div class="col-sm-9">              
+                    <%= f.text_field :full_name, autofocus: true,class:"form-control text-capitalize" %>
+                  </div>
+                </div>
+
+                <hr>
+
+                <div class="row">
+                  <div class="col-sm-3 mt-2">
+                    <p class="mb-0">Email</p>
+                  </div>
+                  <div class="col-sm-9">
+                    <%= f.email_field :email, autofocus: true, autocomplete: "email",class:"form-control" %>
+                  </div>
+                </div>
+
+                
+
+            <% if current_user.provider!="google_oauth2"%>
+                <hr>
+                <div class="row">
+                  <div class="col-sm-3 mt-2">
+                    <p class="mb-0">Nuova Password</p>
+                  </div>
+                  <div class="col-sm-9">
+                    <%= f.password_field :password, autocomplete: "new-password",class:"form-control" %>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-sm-3 mt-2">
+                    <p class="mb-0">Conferma Password</p>
+                  </div>
+                  <div class="col-sm-9">
+                    <%= f.password_field :password_confirmation, autocomplete: "new-password",class:"form-control" %>
+                  </div>
+                </div>
+            <% end %>
+            <% if current_user.provider=="google_oauth2"%>
+
+                <div hidden class="row">
+                  <div class="col-sm-3 mt-2">
+                    <p class="mb-0">Passwords Corrente</p>
+                  </div>
+                  <div class="col-sm-9">
+                    <%= f.password_field :current_password, autocomplete: "new-password",class:"form-control" %>
+                  </div>
+                </div>
+
+
+             <%else%>
+                 <hr>
+                <div class="row">
+                  <div class="col-sm-3 mt-2">
+                    <p class="mb-0">Password Corrente</p>
+                  </div>
+                  <div class="col-sm-9">
+                    <%= f.password_field :current_password, autocomplete: "new-password",class:"form-control" %>
+                  </div>
+                </div>
+
+            <%end%>
+
+            <% if current_user.provider=="google_oauth2" && !current_user.ruolo%>
+            <!--<h2> proprio con oauth </h2>-->
+            <div class="row">
+              <div class="col-sm-3 mt-2">
+                <p class="mb-0">Scegli ruolo</p>
+              </div>
+              <div class="col-sm-3">
+                <%= f.select :ruolo, [["Cliente", "cliente"], ["Manager", "manager"]], {}, {class: "form-control"} %>
+              </div>
+              <p class="mt-3" style="color:red">Devi scegliere un ruolo per poter accedere alla funzionalità del sito !</p>
+            </div>
+
+            <%else%>
+            <%end%>
+              </div>
+            </div>
+
+           
+
+            <!--Submit Button-->
+            <div class="row">
+              <%= f.submit "Modifica", class:"btnupdate",style:"font-size:large"%>
+            </div>
+            <div class="row">
+              <a class="linkupdate" href="/profile">Annulla</a>
+            </div>
+            <% end %>
+            <div class="row">
+              <%= button_to "Elimina il mio account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete, class:"btnupdate", style:"color:red; border-color:rgb(197, 197, 197)" %>
+            </div>
+          
+        </div>
+      
+    </div>
+  </div>
+</section>
+
+</body>
+</html>

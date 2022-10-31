@@ -1,0 +1,34 @@
+<%= form_with(model: affiliation) do |form| %>
+  <% if affiliation.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(affiliation.errors.count, "error") %> prohibited this affiliation from being saved:</h2>
+
+      <ul>
+        <% affiliation.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div hidden>
+    <%= form.text_field :cliente, value: @cliente%>
+  </div>
+
+  <div hidden>
+    <%= form.text_field :manager, value: @manager %>
+  </div>
+
+  <div hidden>
+    <%= form.text_field :azienda, value: @azienda %>
+  </div>
+
+  <div hidden>
+    <%= form.text_field :status, value:"pending"%>
+  </div>
+
+  <div>
+    <%= form.submit class:"btn btn-outline-danger ms-1", style:"width:200px"%>
+    
+  </div>
+<% end %>
