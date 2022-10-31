@@ -12,7 +12,8 @@
  <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style>
 <noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="old stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" rel="old stylesheet"><link href="https://fonts.googleapis.com/css?family=Barlow+Semi+Condensed:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" rel="old stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Barlow+Semi+Condensed:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Heebo:100,300,400,500,700,800,900" rel="stylesheet">
 
     <script async  src="https://cdn.ampproject.org/v0.js"></script>
@@ -109,6 +110,11 @@
                             <p><%= user.email%></p>
                         </div>
 
+                        <%if Affiliation.where(cliente: current_user.id).where(manager: user.id).take%>
+                            <div style="margin-left:auto">
+                                <i class="fa-regular fa-star fa-2x px-5"></i>
+                            </div>
+                        <%end%>
                         <br>
                     </div>
                     </a>
@@ -125,53 +131,4 @@
 
 </section>
 
-
-<!--Footer-->
-<section class="footer4 cid-rsqn8YGLn0" id="footer04-5f">
-    
-    
-    <div class="mine-container " >
-
-
-        <div class="mbr-row mbr-jc-c">
-
-            <div class="mbr-col-lg-3 mbr-col-md-6 mbr-col-sm-12 md-pb align-left">
-                <h2 class="mbr-section-title mbr-black mbr-pb-2 mbr-fonts-style mbr-semibold">Contatti</h2>
-                <p class="address mbr-black mbr-regular mbr-fonts-style"><strong>Phone</strong>: +1 (0) 000 0000 001<br><strong>Address</strong>: Street Name,
-                    33<br>City, AA 09999, Country</p>
-            </div>
-
-
-
-
-            <div class="mbr-col-lg-3 mbr-col-md-6 mbr-col-sm-12 align-left">
-
-
-                <h2 class="mbr-section-title mbr-black mbr-fonts-style mbr-pb-2 mbr-semibold">Rimaniamo in contatto:</h2>
-
-
-                <div class="mbr-col-lg-12 mbr-form" data-form-type="formoid">
-                    <form method="POST" class="mbr-form" action-xhr="https://formoid.net/api/amp-form/push" data-form-title="Form Name"><input type="hidden" name="email" data-form-email="true" value="E74rPotrXfR6WR6Ht6nt/q379qWXGfPP6i/xgPWqC5EOh39BPtqqMX/md9VLZR69/iNDjJ4/zlRCEzbGJdJ9fB3+H+PK6Gcc4088wh2DOCeFv9VlOZOunA3XdXTRPGcB">
-
-                        <div class="dragArea mbr-row">
-                            <div class="mbr-col mbr- mbr- mbr- field" data-for="form[data][0][1]">
-                                <input type="hidden" name="form[data][0][0]" value="email" id="form[data][0][0]-footer04-5f" data-form-field="">
-                                <input type="email" name="form[data][0][1]" placeholder="La tua Email" data-form-field="email" class="field-input display-7" required="required" value="" id="form[data][0][1]-footer04-5f">
-                            </div>
-                            <div class="mbr-col-auto" style=""><button type="submit" class="mine-btn mine-btn-primary display-7" onclick="">Iscrivimi</button></div>
-                        </div>
-                    </form>
-                </div>
-
-                <p class="text mbr-black mbr-pt-4 mbr-regular mbr-fonts-style">Iscriviti alla nostra newsletter!<br></p>
-
-            </div>
-
-        </div>
-    </div>
-
-</section>
-
-</body>
-</html>
 
