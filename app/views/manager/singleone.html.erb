@@ -163,15 +163,19 @@
                                             <% end %>
                                             <br>
                                             <hr>
+                                            
                                             <%= link_to calendar_createEvent_path(userID: @cliente.id) do %>
                                                 <li class="btn btnevent mt-1" style="width:100%; background-color: rgb(169, 249, 255);">Crea Evento</li>
                                             <% end %>
-                                            <%= link_to calendar_editEvent_path(userID: @cliente.id) do %>
+                                                <a href="/manager/events?cliente=<%=@cliente.id.to_s%>" class="btn btnevent mt-1" style="width:100%;  background-color: rgb(98, 245, 255)">Visualizza Eventi</a>
+                                            <!--
+                                            <%= link_to calendar_listEvent_path(userID: @cliente.id) do %>
                                                 <li class="btn btnevent mt-1" style="width:100%;  background-color: rgb(98, 245, 255)";>Modifica Evento</li>
                                             <% end %>
                                             <%= link_to calendar_deleteEvent_path(userID: @cliente.id) do %>
                                                 <li class="btn btnevent mt-1" style="width:100%; background-color:rgb(4, 238, 255);">Elimina Evento</li>
                                             <% end %>
+                                            -->
                                         </div>
                                     </div>
                                     <%end%>

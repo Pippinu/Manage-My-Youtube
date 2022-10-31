@@ -25,4 +25,10 @@ class ManagerController < ApplicationController
         end
     end
 
+    def events
+        @cliente= User.find(params[:cliente])
+        @events=Event.all
+        is_it_your_client(current_user.id,@cliente.id)
+    end
+
 end

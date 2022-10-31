@@ -16,18 +16,27 @@ Rails.application.routes.draw do
 
   get '/cliente' => 'cliente#search'
   get '/cliente/function' => 'cliente#function'
-   get '/cliente/managerprofile' => 'cliente#visualize'
+  get '/cliente/managerprofile' => 'cliente#visualize'
+
+  # get '/cliente/createEvent' => 'cliente#createEvent'
+  # get '/cliente/createEventConfirm' => 'cliente#createEventConfirm'
+
+  # get "cliente/listEvent" , to: "cliente#listEvent"
+  # get "cliente/deleteEvent" , to: "cliente#deleteEvent"
+
+  # get "/cliente/event", to: "cliente#editEvent"
+  # patch "/cliente/event", to: "cliente#reviewEvent"
 
   get '/manager' => 'manager#index'
   get '/manager/affiliazioni' => 'manager#affiliazioni'
   get '/manager/aziende' => 'manager#aziende'
   get '/manager/singleone' => 'manager#singleone'
+  get '/manager/events' => 'manager#events' 
 
   get '/azienda' => 'azienda#index'
   get '/azienda/affiliazioni' => 'azienda#affiliazioni'
   
   get '/affiliations/accept' => 'affiliation#accept'
-
 
   get '/utility/annulla' => 'utility#annulla'
   
@@ -39,7 +48,15 @@ Rails.application.routes.draw do
   get "calendar/deleteCalendar" , to: "calendar#delete"
 
   get "calendar/createEvent" , to: "calendar#createEvent"
-  get "calendar/editEvent" , to: "calendar#createEvent"
+  post "calendar/createEventConfirm" , to: "calendar#createEventConfirm"
+  get "calendar/createEventConfirm" , to: "calendar#createEventConfirm"
+  get "calendar/listEvent" , to: "calendar#listEvent"
   get "calendar/deleteEvent" , to: "calendar#deleteEvent"
 
+  get "/event", to: "calendar#editEvent"
+  patch "/event", to: "calendar#reviewEvent"
+
+  get "/YTProva", to: "youtube#youtubeListProva"
+
+  get "/oauth2callback", to: "prova_calendar#oauth2callback"
 end

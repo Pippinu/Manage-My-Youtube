@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_27_142342) do
+ActiveRecord::Schema[7.0].define(version: 2022_10_31_104644) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -55,6 +55,20 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_27_142342) do
     t.string "managerId"
     t.string "hash"
     t.string "acl_id"
+  end
+
+  create_table "events", force: :cascade do |t|
+    t.string "summary"
+    t.string "description"
+    t.date "start"
+    t.date "end"
+    t.string "calendarID"
+    t.string "eventID"
+    t.string "clientID"
+    t.string "managerID"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "meetCode"
   end
 
   create_table "reviews", force: :cascade do |t|

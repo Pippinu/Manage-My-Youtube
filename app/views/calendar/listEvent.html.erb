@@ -1,0 +1,7 @@
+<div class="d-flex flex-column gap-2">
+    <% @eventList.each do |event| %>
+        <%= link_to event do %>
+            <%= event.id %>
+        <% end %>
+    <% end %>
+</div>

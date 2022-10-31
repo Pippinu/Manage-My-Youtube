@@ -118,6 +118,14 @@
                 <a class="link-secondary">Modifica Descrizione Canale</a>
                 <a class="link-secondary">Carica un video</a>
                 <a class="link-secondary">Lista dei video</a>
+                <br>
+
+                <% affilRecord = Affiliation.find_by(cliente: current_user.id)%>
+                <% managerID = affilRecord.manager %>
+
+                <%= link_to 'Crea Evento', calendar_createEvent_path(managerID: managerID) %>
+                <%= link_to 'Modifica Evento', calendar_listEvent_path(managerID: managerID) %>
+                <%= link_to 'Elimina Evento', calendar_deleteEvent_path(managerID: managerID) %>
             </div>
 
         </div>
