@@ -1,0 +1,2 @@
+module VideoUploadsHelper
+end

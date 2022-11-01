@@ -85,3 +85,9 @@ gem 'omniauth-google-oauth2'
 gem 'omniauth-rails_csrf_protection'
 
 gem 'google-api-client', require: 'google/apis/calendar_v3'
+
+#per yt
+gem 'yt', '~> 0.13.7'
+gem 'autoprefixer-rails'
+gem 'rails-observers'
+gem 'active_type', '0.3.1'

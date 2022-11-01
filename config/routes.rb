@@ -1,6 +1,8 @@
 Rails.application.routes.draw do   
   resources :affiliations
   resources :reviews
+  resources :videos, only: [:index, :new, :create]
+  resources :video_uploads, only: [:new, :create]
   root 'pages#home'
   
   devise_for :users, controllers: {
@@ -60,4 +62,12 @@ Rails.application.routes.draw do
   get "/YTProva", to: "youtube#youtubeListProva"
 
   get "/oauth2callback", to: "prova_calendar#oauth2callback"
+
+  #per yt
+  get "/inizio", to: "yt_menu#index"
+  get "/videos", to: "videos#index"
+  get "/provayt1", to: "youtube#list"
+  get "/provayt2", to: "youtube#youtubeListProva"
+  get "/provayt3", to: "youtube#upload"
+  post 'upload_video', to: 'youtube#upload', as: 'upload'
 end
