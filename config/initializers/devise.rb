@@ -35,7 +35,13 @@ Devise.setup do |config|
             https://www.googleapis.com/auth/calendar.events, 
             https://www.googleapis.com/auth/calendar.events.readonly, 
             https://www.googleapis.com/auth/calendar.readonly,
-            https://www.googleapis.com/auth/calendar.settings.readonly'
+            https://www.googleapis.com/auth/calendar.settings.readonly,
+            https://www.googleapis.com/auth/youtube,
+            https://www.googleapis.com/auth/youtube.force-ssl,
+            https://www.googleapis.com/auth/youtube.readonly,
+            https://www.googleapis.com/auth/youtube.upload,
+            https://www.googleapis.com/auth/youtubepartner,
+            https://www.googleapis.com/auth/youtubepartner-channel-audit'
   }
 
   # Configure the class responsible to send e-mails.
