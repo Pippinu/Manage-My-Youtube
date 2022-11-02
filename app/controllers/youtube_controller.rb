@@ -33,13 +33,16 @@ class YoutubeController < ApplicationController
     client = get_google_youtube_client current_user
 
     part = 'snippet,contentDetails,statistics'
+
+    #METODO PER OTTENERE IL CANALE RELATIVO AL CLIENTE
+
+    @mineresponse= client.list_channels(part, "mine":true).to_json
+
     @response = client.list_channels(part, "id": ["UC_x5XG1OV2P6uZZ5FSM9Ttw"]).to_json
 
     item = JSON.parse(@response).fetch("items")[0]
 
-    @lisResp = "This channel's ID is #{item.fetch("id")}. " +
-          "Its title is '#{item.fetch("snippet").fetch("title")}', and it has " +
-          "#{item.fetch("statistics").fetch("viewCount")} views."
+    @lisResp = "This channel's ID is #{item.fetch("id")}. " + "Its title is '#{item.fetch("snippet").fetch("title")}', and it has " + "#{item.fetch("statistics").fetch("viewCount")} views."
       
   rescue Google::Apis::AuthorizationError
     secrets = Google::APIClient::ClientSecrets.new({
