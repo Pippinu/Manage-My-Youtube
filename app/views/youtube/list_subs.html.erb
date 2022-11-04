@@ -9,3 +9,24 @@ Lista Iscritti (Solo canali con Sublist pubblica)
     <%# Numero di iscritti  %>
     <%= item.subscriber_snippet.title %>
 <% end %>
+
+Activities 
+
+<% @listActivities.items.each do |item| %>
+    <%# Numero di iscritti  %>
+    <%= item.snippet.channel_id %>
+    <%= item.snippet.channel_title %>
+    <%= item.snippet.description %>
+    <%= item.snippet.group_id %>
+    <%= item.snippet.published_at %>
+    <%= item.snippet.tile %>
+    <%= item.snippet.tyoe %>
+
+    thumbanils
+    <%= item.snippet.thumbanils.default %>
+    <%= item.snippet.thumbanils.high %>
+    <%= item.snippet.thumbanils.maxres %>
+    <%= item.snippet.thumbanils.medium %>
+    <%= item.snippet.thumbanils.standard %>
+
+<% end %>

@@ -24,7 +24,7 @@ class YoutubeController < ApplicationController
     'https://www.googleapis.com/auth/youtubepartner-channel-audit']
 
   CLIENT_SECRETS_PATH = 'app/controllers/client_secret.json'
-  CREDENTIALS_PATH = "app/controllers/youtube-quickstart-ruby-credentials.yaml"
+  CREDENTIALS_PATH = "app/controllers/authCredentials.yaml"
   REDIRECT_URI = 'http://localhost:3000/oauth2callback'
   APPLICATION_NAME = 'Progetto LASSI'
 
@@ -80,6 +80,8 @@ class YoutubeController < ApplicationController
     )
 
     @subsList = youtube.list_subscriptions("subscriberSnippet", my_subscribers: true)
+
+    @listActivities = youtube.list_activities("contentDetails", mine: true)
 
   rescue Google::Apis::AuthorizationError
     secrets = Google::APIClient::ClientSecrets.new({
