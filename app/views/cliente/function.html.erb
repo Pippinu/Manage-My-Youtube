@@ -107,7 +107,9 @@
             <div class="d-flex flex-row gap-5 px-2">
                 <div class="pt-3 d-flex flex-column align-items-start">
                     <div class="py-2">
-                        <h5>Iscritti:</h5>    
+                        <%= link_to list_subs_path do%>
+                            <h5>Iscritti:</h5>   
+                        <% end %>  
                         <span><%= statistics.fetch("subscriberCount")%></span> 
                     </div>
                     <div class="py-2">

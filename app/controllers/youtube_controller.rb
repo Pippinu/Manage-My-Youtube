@@ -64,8 +64,15 @@ class YoutubeController < ApplicationController
 
   def list_subs
     # client = get_google_youtube_client current_user
-    youtube = Google::Apis::YoutubeV3::YouTubeService.new
-    youtube.authorization = authorize
+    # youtube = Google::Apis::YoutubeV3::YouTubeService.new
+    # youtube.authorization = authorize
+
+    if current_user.ruolo === "manager"
+      cliente = User.find(params[:userID])
+      youtube = get_google_youtube_client cliente
+    else
+      youtube = get_google_youtube_client current_user
+    end
 
     @subsCount = youtube.list_channels(
       "statistics", 

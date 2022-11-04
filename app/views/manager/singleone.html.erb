@@ -138,6 +138,16 @@
                 <h4>Funzioni Youtube</h4>
                 <div class="d-flex flex-column">
                     <hr>
+                    <ul class="list-group">
+                        <div class="d-flex flex-row gap-3 align-items-center">
+                            <div>
+                                <%= link_to list_subs_path(userID: @cliente.id.to_i) do %>
+                                    <li class="btn btn-success mt-1" style="width:100%">Visualizza Iscritti</li>
+                                <% end %>
+                            </div>
+                        </div>
+                    </ul>
+                    <hr>
                 </div>
             </div>
 
