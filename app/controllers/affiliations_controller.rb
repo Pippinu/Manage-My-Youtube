@@ -1,6 +1,6 @@
 class AffiliationsController < ApplicationController
   before_action :set_affiliation, only: %i[ show edit update destroy ]
-
+  
   # GET /affiliations or /affiliations.json
   def index
     @affiliations = Affiliation.all

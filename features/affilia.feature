@@ -20,3 +20,4 @@ Scenario: log_in
   When I go to cliente_s_m
   Then I should be on cliente_s_m
   When I go to nuova_affilia
+  Then I should be on nuova_aff

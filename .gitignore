@@ -9,3 +9,5 @@ config/credentials.yml.enc
 config/master.key
 /config/master.key
 app/controllers/authCredentials.yaml
+
+/config/master.key
