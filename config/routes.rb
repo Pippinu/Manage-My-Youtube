@@ -61,7 +61,7 @@ Rails.application.routes.draw do
 
   get "/YTProva", to: "youtube#youtubeListProva"
 
-  get "/oauth2callback", to: "prova_calendar#oauth2callback"
+  get "/oauth2callback", to: "youtube#oauth2callback"
 
   #per yt
   get "/inizio", to: "yt_menu#index"
@@ -70,4 +70,6 @@ Rails.application.routes.draw do
   get "/provayt2", to: "youtube#youtubeListProva"
   get "/provayt3", to: "youtube#upload"
   post 'upload_video', to: 'youtube#upload', as: 'upload'
+
+  get "/list_subs", to: "youtube#list_subs"
 end
