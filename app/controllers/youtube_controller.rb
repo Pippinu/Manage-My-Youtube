@@ -75,7 +75,7 @@ class YoutubeController < ApplicationController
     end
 
     @subsCount = youtube.list_channels(
-      "statistics", 
+      "snippet,contentDetails,statistics", 
       :mine => true
     )
 

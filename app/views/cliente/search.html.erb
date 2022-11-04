@@ -110,7 +110,7 @@
                             <p><%= user.email%></p>
                         </div>
 
-                        <%if Affiliation.where(cliente: current_user.id).where(manager: user.id).take%>
+                        <%if Affiliation.where(cliente: current_user.id).where(manager: user.id).where(status:"accepted").take%>
                             <div style="margin-left:auto">
                                 <i class="fa-regular fa-star fa-2x px-5"></i>
                             </div>
