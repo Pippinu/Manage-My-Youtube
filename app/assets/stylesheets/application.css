@@ -70,6 +70,17 @@ body{
 .mbr-text{
     font-style:normal;line-height:1.6;width:100%
 }
+
+.parentsubs {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .childsubs {
+    width: 15%;
+    box-sizing: border-box;
+  }
+
 .mine-btn{
     text-align:center;
     position:relative;

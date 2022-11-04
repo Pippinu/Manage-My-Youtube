@@ -107,7 +107,7 @@ class YoutubeController < ApplicationController
     client = Google::Apis::YoutubeV3::YouTubeService.new
     client.authorization = authorize
     maxResult = 50
-    @listActivities = client.list_activities("snippet", mine: true, max_results: 100)
+    @listActivities = client.list_activities("snippet,contentDetails", mine: true, max_results: 100)
   rescue Google::Apis::AuthorizationError
     secrets = Google::APIClient::ClientSecrets.new({
         "web" => {
