@@ -126,6 +126,27 @@ class YoutubeController < ApplicationController
 
     retry
   end
+  def list_vid
+    client = Google::Apis::YoutubeV3::YouTubeService.new
+    client.authorization = authorize
+    maxResult = 50
+    @listActivities = client.list_activities("snippet,contentDetails", mine: true, max_results: 100)
+  rescue Google::Apis::AuthorizationError
+    secrets = Google::APIClient::ClientSecrets.new({
+        "web" => {
+          "access_token" => current_user.access_token,
+          "refresh_token" => current_user.refresh_token,
+          "client_id" => ENV["GOOGLE_OAUTH_CLIENT_ID"],
+          "client_secret" => ENV["GOOGLE_OAUTH_CLIENT_SECRET"]
+        }
+    })
+    client.authorization = secrets.to_authorization
+    client.authorization.grant_type = "refresh_token"
+
+    client.authorization.refresh!
+    current_user.update_attribute(:access_token, client.authorization.access_token)
+    current_user.update_attribute(:refresh_token, client.authorization.refresh_token)
+  end
 
   def insert_playlist
     # client = get_google_youtube_client current_user

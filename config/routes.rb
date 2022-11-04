@@ -74,5 +74,6 @@ Rails.application.routes.draw do
   get "/list_subs", to: "youtube#list_subs"
   get "/list_activities", to: "youtube#list_activities"
   get "/insert_playlist", to: "youtube#insert_playlist"
+  get "/lista_video", to: "youtube#list_vid"
 
 end
