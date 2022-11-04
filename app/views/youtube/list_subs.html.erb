@@ -1,0 +1,11 @@
+<% @subsCount.items.each do |item| %>
+    <%# Numero di iscritti  %>
+    <%= item.statistics.subscriber_count %>
+<% end %>
+<br>
+Lista Iscritti (Solo canali con Sublist pubblica)
+
+<% @subsList.items.each do |item| %>
+    <%# Numero di iscritti  %>
+    <%= item.subscriber_snippet.title %>
+<% end %>
