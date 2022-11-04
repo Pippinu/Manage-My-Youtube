@@ -1,7 +1,28 @@
 require 'google/apis/youtube_v3'
 require "google/api_client/client_secrets.rb"
 
+require 'googleauth'
+require 'googleauth/stores/file_token_store'
+require 'fileutils'
+
 class ClienteController < ApplicationController
+
+  SCOPE = ['https://www.googleapis.com/auth/calendar',
+    'https://www.googleapis.com/auth/calendar.events',
+    'https://www.googleapis.com/auth/calendar.events.readonly',
+    'https://www.googleapis.com/auth/calendar.readonly',
+    'https://www.googleapis.com/auth/calendar.settings.readonly',
+    'https://www.googleapis.com/auth/youtube',
+    'https://www.googleapis.com/auth/youtube.force-ssl',
+    'https://www.googleapis.com/auth/youtube.readonly',
+    'https://www.googleapis.com/auth/youtube.upload',
+    'https://www.googleapis.com/auth/youtubepartner',
+    'https://www.googleapis.com/auth/youtubepartner-channel-audit']
+
+  CLIENT_SECRETS_PATH = 'app/controllers/client_secret.json'
+  CREDENTIALS_PATH = "app/controllers/authCredentials.yaml"
+  REDIRECT_URI = 'http://localhost:3000/oauth2callback'
+  APPLICATION_NAME = 'Progetto LASSI'
 
     before_action:require_user_logged_in!
     before_action:are_you_a_client
@@ -15,7 +36,8 @@ class ClienteController < ApplicationController
     end
 
     def function
-        client = get_google_youtube_client current_user
+        client = Google::Apis::YoutubeV3::YouTubeService.new
+        client.authorization = authorize
 
         part = 'snippet,contentDetails,statistics'
 
@@ -60,6 +82,27 @@ class ClienteController < ApplicationController
           redirect_to :back
         end
         client
+    end
+
+    def authorize
+      FileUtils.mkdir_p(File.dirname(CREDENTIALS_PATH))
+    
+      client_id = Google::Auth::ClientId.from_file(CLIENT_SECRETS_PATH)
+      token_store = Google::Auth::Stores::FileTokenStore.new(file: CREDENTIALS_PATH)
+      authorizer = Google::Auth::UserAuthorizer.new(
+        client_id, SCOPE, token_store)
+      user_id = 'default'
+      credentials = authorizer.get_credentials(user_id)
+      if credentials.nil?
+        url = authorizer.get_authorization_url(base_url: REDIRECT_URI)
+        puts "Open the following URL in the browser and enter the " +
+              "resulting code after authorization"
+        puts url
+        code = gets
+        credentials = authorizer.get_and_store_credentials_from_code(
+          user_id: user_id, code: code, base_url: REDIRECT_URI)
       end
+      credentials
+    end
       
 end

@@ -103,9 +103,9 @@ class YoutubeController < ApplicationController
   end
 
   def list_activities
-    client = get_google_youtube_client current_user
-    # client = Google::Apis::YoutubeV3::YouTubeService.new
-    # client.authorization = authorize
+    # client = get_google_youtube_client current_user
+    client = Google::Apis::YoutubeV3::YouTubeService.new
+    client.authorization = authorize
     maxResult = 50
     @listActivities = client.list_activities("snippet", mine: true, max_results: 100)
   rescue Google::Apis::AuthorizationError
@@ -138,6 +138,7 @@ class YoutubeController < ApplicationController
         description: "Questa playlist è stata creata usando Youtube API"
       }
     )
+    
     @playlist = client.insert_playlist("snippet", playlistObj)
   rescue Google::Apis::AuthorizationError
     secrets = Google::APIClient::ClientSecrets.new({
