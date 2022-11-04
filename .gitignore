@@ -4,5 +4,5 @@ tmp/
 tmp/cache/
 db/development.sqlite3
 log/development.log
-app/controllers/client.secret
 app/controllers/youtube-quickstart-ruby-credentials.yaml
+app/controllers/client_secret.json
