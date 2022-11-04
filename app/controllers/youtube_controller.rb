@@ -102,6 +102,61 @@ class YoutubeController < ApplicationController
     retry
   end
 
+  def list_activities
+    client = get_google_youtube_client current_user
+    # client = Google::Apis::YoutubeV3::YouTubeService.new
+    # client.authorization = authorize
+    maxResult = 50
+    @listActivities = client.list_activities("snippet", mine: true, max_results: 100)
+  rescue Google::Apis::AuthorizationError
+    secrets = Google::APIClient::ClientSecrets.new({
+        "web" => {
+          "access_token" => current_user.access_token,
+          "refresh_token" => current_user.refresh_token,
+          "client_id" => ENV["GOOGLE_OAUTH_CLIENT_ID"],
+          "client_secret" => ENV["GOOGLE_OAUTH_CLIENT_SECRET"]
+        }
+    })
+    client.authorization = secrets.to_authorization
+    client.authorization.grant_type = "refresh_token"
+
+    client.authorization.refresh!
+    current_user.update_attribute(:access_token, client.authorization.access_token)
+    current_user.update_attribute(:refresh_token, client.authorization.refresh_token)
+
+    retry
+  end
+
+  def insert_playlist
+    # client = get_google_youtube_client current_user
+    client = Google::Apis::YoutubeV3::YouTubeService.new
+    client.authorization = authorize
+
+    playlistObj = Google::Apis::YoutubeV3::Playlist.new(
+      snippet: {
+        title: "Playlist di Prova",
+        description: "Questa playlist è stata creata usando Youtube API"
+      }
+    )
+    @playlist = client.insert_playlist("snippet", playlistObj)
+  rescue Google::Apis::AuthorizationError
+    secrets = Google::APIClient::ClientSecrets.new({
+        "web" => {
+          "access_token" => current_user.access_token,
+          "refresh_token" => current_user.refresh_token,
+          "client_id" => ENV["GOOGLE_OAUTH_CLIENT_ID"],
+          "client_secret" => ENV["GOOGLE_OAUTH_CLIENT_SECRET"]
+        }
+    })
+    client.authorization = secrets.to_authorization
+    client.authorization.grant_type = "refresh_token"
+
+    client.authorization.refresh!
+    current_user.update_attribute(:access_token, client.authorization.access_token)
+    current_user.update_attribute(:refresh_token, client.authorization.refresh_token)
+
+    retry
+  end
   # def youtubeListProva
   #   client = get_google_youtube_client current_user
   #   @dati = client.list_channels("UCJgEAT_2X9rkjjyq5cfZ-GQ")

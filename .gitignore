@@ -5,3 +5,7 @@ tmp/cache/
 log/development.log
 app/controllers/youtube-quickstart-ruby-credentials.yaml
 app/controllers/client_secret.json
+config/credentials.yml.enc
+config/master.key
+/config/master.key
+app/controllers/authCredentials.yaml

@@ -72,4 +72,7 @@ Rails.application.routes.draw do
   post 'upload_video', to: 'youtube#upload', as: 'upload'
 
   get "/list_subs", to: "youtube#list_subs"
+  get "/list_activities", to: "youtube#list_activities"
+  get "/insert_playlist", to: "youtube#insert_playlist"
+
 end
