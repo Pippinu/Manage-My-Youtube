@@ -78,7 +78,7 @@ group :test do
   gem "webdrivers"
 end
 
-
+gem 'chartkick'
 gem 'devise'
 gem 'omniauth'
 gem 'omniauth-google-oauth2'

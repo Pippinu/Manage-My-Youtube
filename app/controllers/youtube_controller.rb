@@ -28,6 +28,12 @@ class YoutubeController < ApplicationController
   REDIRECT_URI = 'http://localhost:3000/oauth2callback'
   APPLICATION_NAME = 'Progetto LASSI'
 
+
+
+  def prova_grafico
+    @dati_l=[[12,32,23,56],[122,246,73,300]]
+    
+  end
   def list
     client = get_google_youtube_client current_user
 
