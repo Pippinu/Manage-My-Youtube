@@ -37,12 +37,12 @@ class YoutubeController < ApplicationController
 
     @mineresponse= client.list_channels(part, "mine":true).to_json
 
-    @response = client.list_channels(part, "id": ["UC_x5XG1OV2P6uZZ5FSM9Ttw"]).to_json
+    #@response = client.list_channels(part, "id": ["UC_x5XG1OV2P6uZZ5FSM9Ttw"]).to_json
 
     item = JSON.parse(@response).fetch("items")[0]
 
     @lisResp = "This channel's ID is #{item.fetch("id")}. " + "Its title is '#{item.fetch("snippet").fetch("title")}', and it has " + "#{item.fetch("statistics").fetch("viewCount")} views."
-      
+    #putes @listResp  
   rescue Google::Apis::AuthorizationError
     secrets = Google::APIClient::ClientSecrets.new({
         "web" => {
@@ -131,6 +131,58 @@ class YoutubeController < ApplicationController
     client.authorization = authorize
     maxResult = 50
     @listActivities = client.list_activities("snippet,contentDetails", mine: true, max_results: 100)
+  rescue Google::Apis::AuthorizationError
+    secrets = Google::APIClient::ClientSecrets.new({
+        "web" => {
+          "access_token" => current_user.access_token,
+          "refresh_token" => current_user.refresh_token,
+          "client_id" => ENV["GOOGLE_OAUTH_CLIENT_ID"],
+          "client_secret" => ENV["GOOGLE_OAUTH_CLIENT_SECRET"]
+        }
+    })
+    client.authorization = secrets.to_authorization
+    client.authorization.grant_type = "refresh_token"
+
+    client.authorization.refresh!
+    current_user.update_attribute(:access_token, client.authorization.access_token)
+    current_user.update_attribute(:refresh_token, client.authorization.refresh_token)
+  end
+
+
+  #   DA QUI
+  def list_vid_con_channel_id                                                               # usare questa per il manager che chiede video clienti
+    #prendere per ogni user del manager l'id dal database
+    client = Google::Apis::YoutubeV3::YouTubeService.new
+    client.authorization = authorize
+ 
+    @listActivities = client.list_activities("snippet",channel_id: "UCVuZe4vjCbQLCLLeXW2NH_Q", max_results: 10)
+    puts @listActivities
+  rescue Google::Apis::AuthorizationError
+    secrets = Google::APIClient::ClientSecrets.new({
+        "web" => {
+          "access_token" => current_user.access_token,
+          "refresh_token" => current_user.refresh_token,
+          "client_id" => ENV["GOOGLE_OAUTH_CLIENT_ID"],
+          "client_secret" => ENV["GOOGLE_OAUTH_CLIENT_SECRET"]
+        }
+    })
+    client.authorization = secrets.to_authorization
+    client.authorization.grant_type = "refresh_token"
+
+    client.authorization.refresh!
+    current_user.update_attribute(:access_token, client.authorization.access_token)
+    current_user.update_attribute(:refresh_token, client.authorization.refresh_token)
+  end
+
+                                      # qui passare un array con i video risultato di list_vid_con_channel_id
+  def video_stat
+    client = Google::Apis::YoutubeV3::YouTubeService.new
+    client.authorization = authorize
+    maxResult = 50
+    @videostat = client.list_videos("statistics",id: "V7fF6RnFQdI")
+    puts @videostat
+
+
   rescue Google::Apis::AuthorizationError
     secrets = Google::APIClient::ClientSecrets.new({
         "web" => {
