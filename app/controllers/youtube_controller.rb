@@ -32,18 +32,28 @@ class YoutubeController < ApplicationController
     @dati_l=[[12,32,23,56],[122,246,73,300]]
     
   end
+
+
   def list
     client = get_google_youtube_client current_user
 
     part = 'snippet,contentDetails,statistics'
 
+    #@response = client.list_channels(part, "id": ["UC_x5XG1OV2P6uZZ5FSM9Ttw"]).to_json
+
     #METODO PER OTTENERE IL CANALE RELATIVO AL CLIENTE
 
     @mineresponse= client.list_channels(part, "mine":true).to_json
+    item = JSON.parse(@mineresponse).fetch("items")[0]
 
-    #@response = client.list_channels(part, "id": ["UC_x5XG1OV2P6uZZ5FSM9Ttw"]).to_json
+    channelID= item.fetch("id")
 
-    item = JSON.parse(@response).fetch("items")[0]
+    user = User.find(current_user.id)
+    user.update_attribute(:channelID, channelID)
+
+    
+
+    
 
     @lisResp = "This channel's ID is #{item.fetch("id")}. " + "Its title is '#{item.fetch("snippet").fetch("title")}', and it has " + "#{item.fetch("statistics").fetch("viewCount")} views."
     #putes @listResp  
@@ -130,11 +140,13 @@ class YoutubeController < ApplicationController
 
     retry
   end
+
   def list_vid
     client = Google::Apis::YoutubeV3::YouTubeService.new
     client.authorization = authorize
     maxResult = 50
-    @listActivities = client.list_activities("snippet,contentDetails", mine: true, max_results: 100)
+    @listActivities = client.list_activities("snippet,contentDetails,id", mine: true, max_results: 100)
+
   rescue Google::Apis::AuthorizationError
     secrets = Google::APIClient::ClientSecrets.new({
         "web" => {
@@ -160,6 +172,7 @@ class YoutubeController < ApplicationController
     client.authorization = authorize
  
     @listActivities = client.list_activities("snippet",channel_id: "UCVuZe4vjCbQLCLLeXW2NH_Q", max_results: 10)
+
     puts @listActivities
   rescue Google::Apis::AuthorizationError
     secrets = Google::APIClient::ClientSecrets.new({

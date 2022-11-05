@@ -81,20 +81,25 @@
 
         <!--DA IMPLEMENTARE ! -->
         
-        <div class="d-flex flex-row gap-3 col-12 parentsubs pb-5">
+        <div class="d-flex flex-column gap-5 col-12 pb-5">
         <% @listActivities.items.each do |item| %>
                 <% if item.snippet.type=="upload"%>
-                <div class="d-flex flex-column childsubs">
-                        <img src="<%=item.snippet.thumbnails.high.url%>" alt="avatar"
-                    class="rounded-circle border" style="width: 100px;">
-
+                <div class="d-flex flex-row">
+                    <div id="videotemplatecontainer">
+                        <img id="videotemplate" src="<%=item.snippet.thumbnails.high.url%>" alt="avatar" style="height: 180px;">
                         
-                    <div style="max-width: 120px">
-                        <p class="font-weight-bold text-capitalize" style="font-weight: bold"> <%= item.snippet.channel_title %></p>
-
+                        <a id="youtubelogolink" href="https://www.youtube.com/watch?v=<%= item.content_details.upload.video_id%>" target="_blank">
+                            <i id="youtubelogo" class="fa-brands fa-youtube fa-3x"></i>
+                        </a>
+                        
+                    </div>
+                    
+                        
+                    <div class="px-4 p-3">
+                        <p style="font-weight: bold"> <%= item.snippet.title%></p>
+                        <p> <%= item.snippet.description%></p>
                     </div>
                 </div>
-            
 
                 <% end%>        
         <% end %>
