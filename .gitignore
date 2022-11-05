@@ -11,3 +11,4 @@ config/master.key
 app/controllers/authCredentials.yaml
 
 /config/master.key
+db/development.sqlite3

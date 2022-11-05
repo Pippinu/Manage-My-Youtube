@@ -27,9 +27,7 @@ class YoutubeController < ApplicationController
   CREDENTIALS_PATH = "app/controllers/authCredentials.yaml"
   REDIRECT_URI = 'http://localhost:3000/oauth2callback'
   APPLICATION_NAME = 'Progetto LASSI'
-
-
-
+  
   def prova_grafico
     @dati_l=[[12,32,23,56],[122,246,73,300]]
     
