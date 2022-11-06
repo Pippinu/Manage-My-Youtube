@@ -62,6 +62,7 @@ Rails.application.routes.draw do
   get "/YTProva", to: "youtube#youtubeListProva"
 
   #get "/oauth2callback", to: "youtube#oauth2callback"
+  # get "/oauth2callback", to: "youtube#oauth2callback"
 
   #per yt
   get "/inizio", to: "yt_menu#index"

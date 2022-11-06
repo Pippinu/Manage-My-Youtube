@@ -11,22 +11,22 @@ class YoutubeController < ApplicationController
   # YOUTUBE_API_SERVICE_NAME = 'youtube'
   # YOUTUBE_API_VERSION = 'v3'
 
-  SCOPE = ['https://www.googleapis.com/auth/calendar',
-    'https://www.googleapis.com/auth/calendar.events',
-    'https://www.googleapis.com/auth/calendar.events.readonly',
-    'https://www.googleapis.com/auth/calendar.readonly',
-    'https://www.googleapis.com/auth/calendar.settings.readonly',
-    'https://www.googleapis.com/auth/youtube',
-    'https://www.googleapis.com/auth/youtube.force-ssl',
-    'https://www.googleapis.com/auth/youtube.readonly',
-    'https://www.googleapis.com/auth/youtube.upload',
-    'https://www.googleapis.com/auth/youtubepartner',
-    'https://www.googleapis.com/auth/youtubepartner-channel-audit']
+  # SCOPE = ['https://www.googleapis.com/auth/calendar',
+  #   'https://www.googleapis.com/auth/calendar.events',
+  #   'https://www.googleapis.com/auth/calendar.events.readonly',
+  #   'https://www.googleapis.com/auth/calendar.readonly',
+  #   'https://www.googleapis.com/auth/calendar.settings.readonly',
+  #   'https://www.googleapis.com/auth/youtube',
+  #   'https://www.googleapis.com/auth/youtube.force-ssl',
+  #   'https://www.googleapis.com/auth/youtube.readonly',
+  #   'https://www.googleapis.com/auth/youtube.upload',
+  #   'https://www.googleapis.com/auth/youtubepartner',
+  #   'https://www.googleapis.com/auth/youtubepartner-channel-audit']
 
-  CLIENT_SECRETS_PATH = 'app/controllers/client_secret.json'
-  CREDENTIALS_PATH = "app/controllers/authCredentials.yaml"
-  REDIRECT_URI = 'http://localhost:3000/oauth2callback'
-  APPLICATION_NAME = 'Progetto LASSI'
+  # CLIENT_SECRETS_PATH = 'app/controllers/client_secret.json'
+  # CREDENTIALS_PATH = "app/controllers/authCredentials.yaml"
+  # REDIRECT_URI = 'http://localhost:3000/oauth2callback'
+  # APPLICATION_NAME = 'Progetto LASSI'
   
   def prova_grafico
     @dati_l=[[12,32,23,56],[122,246,73,300]]
@@ -50,10 +50,6 @@ class YoutubeController < ApplicationController
 
     user = User.find(current_user.id)
     user.update_attribute(:channelID, channelID)
-
-    
-
-    
 
     @lisResp = "This channel's ID is #{item.fetch("id")}. " + "Its title is '#{item.fetch("snippet").fetch("title")}', and it has " + "#{item.fetch("statistics").fetch("viewCount")} views."
     #putes @listResp  
@@ -85,17 +81,17 @@ class YoutubeController < ApplicationController
       cliente = User.find(params[:userID])
       youtube = get_google_youtube_client cliente
     else
-      youtube = get_google_youtube_client current_user
+      client = get_google_youtube_client current_user
     end
 
-    @subsCount = youtube.list_channels(
+    @subsCount = client.list_channels(
       "snippet,contentDetails,statistics", 
       :mine => true
     )
 
-    @subsList = youtube.list_subscriptions("subscriberSnippet", my_subscribers: true)
+    @subsList = client.list_subscriptions("subscriberSnippet", my_subscribers: true)
 
-    @listActivities = youtube.list_activities("contentDetails", mine: true)
+    @listActivities = client.list_activities("contentDetails", mine: true)
 
   rescue Google::Apis::AuthorizationError
     secrets = Google::APIClient::ClientSecrets.new({
@@ -117,9 +113,11 @@ class YoutubeController < ApplicationController
   end
 
   def list_activities
-    # client = get_google_youtube_client current_user
-    client = Google::Apis::YoutubeV3::YouTubeService.new
-    client.authorization = authorize
+    # client = Google::Apis::YoutubeV3::YouTubeService.new
+    # client.authorization = authorize
+
+    client = get_google_youtube_client current_user
+
     maxResult = 50
     @listActivities = client.list_activities("snippet,contentDetails", mine: true, max_results: 100)
   rescue Google::Apis::AuthorizationError
@@ -142,8 +140,11 @@ class YoutubeController < ApplicationController
   end
 
   def list_vid
-    client = Google::Apis::YoutubeV3::YouTubeService.new
-    client.authorization = authorize
+    # client = Google::Apis::YoutubeV3::YouTubeService.new
+    # client.authorization = authorize
+
+    client = get_google_youtube_client current_user
+    
     maxResult = 50
     @listActivities = client.list_activities("snippet,contentDetails,id", mine: true, max_results: 100)
 
@@ -168,8 +169,11 @@ class YoutubeController < ApplicationController
   #   DA QUI
   def list_vid_con_channel_id     # usare questa per il manager che chiede video clienti
     #prendere per ogni user del manager l'id dal database
-    client = Google::Apis::YoutubeV3::YouTubeService.new
-    client.authorization = authorize
+    # client = Google::Apis::YoutubeV3::YouTubeService.new
+    # client.authorization = authorize
+
+    client = get_google_youtube_client current_user
+
     channelID= params[:id]
     @listActivities = client.list_activities("snippet,contentDetails",channel_id: channelID, max_results: 10)
 
@@ -195,13 +199,15 @@ class YoutubeController < ApplicationController
 
   #qui passare un array con i video risultato di list_vid_con_channel_id
   def video_stat
-    client = Google::Apis::YoutubeV3::YouTubeService.new
-    client.authorization = authorize
+    # client = Google::Apis::YoutubeV3::YouTubeService.new
+    # client.authorization = authorize
+
+    client = get_google_youtube_client current_user
+
     @video_id= params[:id]
     maxResult = 50
     @videostat = client.list_videos("snippet,statistics,id",id: @video_id).items[0]
     puts @videostat
-
 
   rescue Google::Apis::AuthorizationError
     secrets = Google::APIClient::ClientSecrets.new({
@@ -221,9 +227,9 @@ class YoutubeController < ApplicationController
   end
 
   def insert_playlist
-    # client = get_google_youtube_client current_user
-    client = Google::Apis::YoutubeV3::YouTubeService.new
-    client.authorization = authorize
+    client = get_google_youtube_client current_user
+    # client = Google::Apis::YoutubeV3::YouTubeService.new
+    # client.authorization = authorize
 
     playlistObj = Google::Apis::YoutubeV3::Playlist.new(
       snippet: {
@@ -233,6 +239,7 @@ class YoutubeController < ApplicationController
     )
     
     @playlist = client.insert_playlist("snippet", playlistObj)
+
   rescue Google::Apis::AuthorizationError
     secrets = Google::APIClient::ClientSecrets.new({
         "web" => {
@@ -253,8 +260,12 @@ class YoutubeController < ApplicationController
   end
 
   def videograph
-    client = Google::Apis::YoutubeV3::YouTubeService.new
-    client.authorization = authorize
+    #client = Google::Apis::YoutubeV3::YouTubeService.new
+    #client.authorization = authorize
+
+    client = get_google_youtube_client current_user
+
+
     channelID= params[:id]
     @listActivities = client.list_activities("snippet,contentDetails,id",channel_id: channelID, max_results: 10)
 
@@ -327,27 +338,27 @@ class YoutubeController < ApplicationController
     client
   end
 
-  def authorize
-    FileUtils.mkdir_p(File.dirname(CREDENTIALS_PATH))
+  # def authorize
+  #   FileUtils.mkdir_p(File.dirname(CREDENTIALS_PATH))
   
-    client_id = Google::Auth::ClientId.from_file(CLIENT_SECRETS_PATH)
-    token_store = Google::Auth::Stores::FileTokenStore.new(file: CREDENTIALS_PATH)
-    authorizer = Google::Auth::UserAuthorizer.new(
-      client_id, SCOPE, token_store)
-    user_id = 'default'
-    credentials = authorizer.get_credentials(user_id)
-    if credentials.nil?
-      url = authorizer.get_authorization_url(base_url: REDIRECT_URI)
-      puts "Open the following URL in the browser and enter the " +
-            "resulting code after authorization"
-      puts url
-      code = gets
-      credentials = authorizer.get_and_store_credentials_from_code(
-        user_id: user_id, code: code, base_url: REDIRECT_URI)
-    end
-    credentials
-  end
+  #   client_id = Google::Auth::ClientId.from_file(CLIENT_SECRETS_PATH)
+  #   token_store = Google::Auth::Stores::FileTokenStore.new(file: CREDENTIALS_PATH)
+  #   authorizer = Google::Auth::UserAuthorizer.new(
+  #     client_id, SCOPE, token_store)
+  #   user_id = 'default'
+  #   credentials = authorizer.get_credentials(user_id)
+  #   if credentials.nil?
+  #     url = authorizer.get_authorization_url(base_url: REDIRECT_URI)
+  #     puts "Open the following URL in the browser and enter the " +
+  #           "resulting code after authorization"
+  #     puts url
+  #     code = gets
+  #     credentials = authorizer.get_and_store_credentials_from_code(
+  #       user_id: user_id, code: code, base_url: REDIRECT_URI)
+  #   end
+  #   credentials
+  # end
 
-  def oauth2callback
-  end
+  # def oauth2callback
+  # end
 end
