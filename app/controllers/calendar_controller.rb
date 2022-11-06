@@ -13,77 +13,44 @@ require 'securerandom'
 
 require 'rubygems'
 
-# Sistemare refresh token, non richiede nuovo token
+#FUNZIONA TUTTO, SISTEMARE DOPPIO EVENTO
 
 class CalendarController < ApplicationController
-    # :helper_method :createEvent
 
-    SCOPE = ['https://www.googleapis.com/auth/calendar',
-            'https://www.googleapis.com/auth/calendar.events',
-            'https://www.googleapis.com/auth/calendar.events.readonly',
-            'https://www.googleapis.com/auth/calendar.readonly',
-            'https://www.googleapis.com/auth/calendar.settings.readonly',
-            'https://www.googleapis.com/auth/youtube',
-            'https://www.googleapis.com/auth/youtube.force-ssl',
-            'https://www.googleapis.com/auth/youtube.readonly',
-            'https://www.googleapis.com/auth/youtube.upload',
-            'https://www.googleapis.com/auth/youtubepartner',
-            'https://www.googleapis.com/auth/youtubepartner-channel-audit']
+    # SCOPE = ['https://www.googleapis.com/auth/calendar',
+    #         'https://www.googleapis.com/auth/calendar.events',
+    #         'https://www.googleapis.com/auth/calendar.events.readonly',
+    #         'https://www.googleapis.com/auth/calendar.readonly',
+    #         'https://www.googleapis.com/auth/calendar.settings.readonly',
+    #         'https://www.googleapis.com/auth/youtube',
+    #         'https://www.googleapis.com/auth/youtube.force-ssl',
+    #         'https://www.googleapis.com/auth/youtube.readonly',
+    #         'https://www.googleapis.com/auth/youtube.upload',
+    #         'https://www.googleapis.com/auth/youtubepartner',
+    #         'https://www.googleapis.com/auth/youtubepartner-channel-audit']
 
-    CLIENT_SECRETS_PATH = 'app/controllers/client_secret.json'
-    CREDENTIALS_PATH = "app/controllers/youtube-quickstart-ruby-credentials.yaml"
-    REDIRECT_URI = 'http://localhost:3000/oauth2callback'
-    APPLICATION_NAME = 'Progetto LASSI'
+    # CLIENT_SECRETS_PATH = 'app/controllers/client_secret.json'
+    # CREDENTIALS_PATH = "app/controllers/youtube-quickstart-ruby-credentials.yaml"
+    # REDIRECT_URI = 'http://localhost:3000/oauth2callback'
+    # APPLICATION_NAME = 'Progetto LASSI'
 
     def new
         @calendar = Calendar.new
     end
 
     def create
-        
-        # Da testare
         userID = params[:userID]
+        cliente = User.find(userID)
+        userEmail = cliente.email
 
         client = get_google_calendar_client current_user
-        calendarList = client.list_calendar_lists()
 
-        hash = makeHash(current_user.id, userID)
-
-        calendarList.items.each do |calendar|
-            # Da Cambiare e ricercare per userID e managerID
-            if calendar.summary === "MMY_USER_#{hash}"
-                # CONTROLLARE SE calendarID sono uguali
-
-                if !Calendar.exists?(:hash => hash)
-                    foundCalendar = Calendar.where(:hash => hash)
-
-                    #CONTROLLARE QUI SE ENTRAMBI SONO COLLEGATI A OAUTH ALTRIMENTI REINDIRIZZARLI
-                    
-                    aclCalendarList = client.lists_acls(foundCalendar.calendarId)
-                    acl = aclCalendarList.items.first
-
-                    calendarToSave = newCalendar(calendar, userID, hash, acl.id)
-    
-                    # Sistemare, salva ma da errore
-                    calendarToSave.save!
-                end
-                
-                redirect_to manager_path()
-                return 
-            end
-        end
-
+        # Creo calendar con Google API
         googleCalendar = Google::Apis::CalendarV3::Calendar.new(
-            summary: "MMY_USER_#{hash}",
+            summary: "MMY_USER_#{cliente.full_name}",
             time_zone: 'Europe/Rome'
         )
-    
-        # Creo calendar con Google API
         createdCalendar = client.insert_calendar(googleCalendar)
-
-        # Inserisco l'utente nelle ACL del calendario appena creato
-        user = User.find(userID)
-        userEmail = user.email
 
         # Creo ACL che permette condivisione del calendario appena creato con il relativo cliente.
         rule = Google::Apis::CalendarV3::AclRule.new(
@@ -95,16 +62,14 @@ class CalendarController < ApplicationController
             role: "writer"
         )
         # Google API Method per inserire le ACL appena create al Google Calendar
-        result = client.insert_acl(createdCalendar.id, rule)
+        acl = client.insert_acl(createdCalendar.id, rule)
 
         # Aggiungo il Calendar appena creato al DB Calendars 
-        calendarToSave = newCalendar(createdCalendar, userID, hash, result.id)
+        calendarToSave = newCalendar(createdCalendar, userID, acl.id)
         # Da sistemare, salva ma da errore di conversione
         calendarToSave.save!
-    
-        # calendar = Calendar.find_by(hash: hash)
-        # redirect_to getCalendar_path(:ttedCalendarId => calendar.id)
-        # redirect_to manager_path()
+
+        redirect_to '/manager/singleone?cliente='+ cliente.id.to_s
 
     rescue Google::Apis::AuthorizationError
         secrets = Google::APIClient::ClientSecrets.new({
@@ -136,7 +101,7 @@ class CalendarController < ApplicationController
 
             Calendar.delete(calendar.id)
         end
-        redirect_to manager_path()
+        redirect_to '/manager/singleone?cliente='+ userID.to_s
 
     rescue Google::Apis::AuthorizationError
         secrets = Google::APIClient::ClientSecrets.new({
@@ -167,10 +132,12 @@ class CalendarController < ApplicationController
         end
     end
 
-    # OK Cliente e OK Manager
+    # OK Cliente e OK Manager, DA SISTEMARE DOPPIO EVENTO
     def createEventConfirm
         event = params[:event]
         userID = event[:userID]
+
+        client = get_google_calendar_client current_user
 
         # Da sistemare con tutti i dati
         # @newEvent = Event.new()
@@ -232,11 +199,6 @@ class CalendarController < ApplicationController
             calendar = Calendar.find_by(managerId: event[:userID], userId: current_user.id)
         end
 
-        client = get_google_calendar_client current_user
-        # client = Google::Apis::CalendarV3::CalendarService.new
-        # client.client_options.application_name = APPLICATION_NAME
-        # client.authorization = authorize
-
         @createdEvent = client.insert_event(calendar.calendarId, calendarEvent, conference_data_version: 1)
 
         @eventRecord = Event.new()
@@ -258,9 +220,12 @@ class CalendarController < ApplicationController
         end
 
         @eventRecord.save
-        
-        # redirect_to '/manager/singleone?cliente='+ cliente.id.to_s
-        redirect_to root_path()
+
+        if current_user.ruolo === "manager"
+            redirect_to '/manager/singleone?cliente='+ userID.to_s
+        else
+            redirect_to '/cliente/function'
+        end
 
     rescue Google::Apis::AuthorizationError
         secrets = Google::APIClient::ClientSecrets.new({
@@ -295,25 +260,58 @@ class CalendarController < ApplicationController
 
     def reviewEvent
         event = params[:event]
+        userID = params[:userID]
 
-        @event = Event.find(event[:eventID])
+        eventDB = Event.find(event[:eventID])
 
         client = get_google_calendar_client current_user
 
-        eventToEdit = client.get_event(@event.calendarID, @event.eventID)
+        eventToEdit = client.get_event(eventDB.calendarID, eventDB.eventID)
 
+        # Modifico l'evento su Google Calendar
         eventToEdit.summary = event[:summary]
         eventToEdit.description = event[:description]
         eventToEdit.start.date = event[:start]
         eventToEdit.end.date = event[:end]
         eventToEdit.conference_data.conference_id = event[:meetCode]
 
-        @editedEvent = client.patch_event(@event.calendarID, @event.eventID, eventToEdit)
-        redirect_to manager_path()
+        @editedEvent = client.patch_event(eventDB.calendarID, eventDB.eventID, eventToEdit)
+
+        # Modifico l'evento Active Record
+        eventDB.update(
+            summary: event[:summary], 
+            description: event[:description],
+            start: event[:start],
+            end: event[:end],
+            meetCode: event[:meetCode]
+        )
+
+        if current_user.ruolo === "manager"
+            redirect_to '/manager/singleone?cliente='+ eventDB.clientID.to_s
+        else
+            redirect_to '/cliente/function'
+        end
+    rescue Google::Apis::AuthorizationError
+        secrets = Google::APIClient::ClientSecrets.new({
+            "web" => {
+              "access_token" => current_user.access_token,
+              "refresh_token" => current_user.refresh_token,
+              "client_id" => ENV["GOOGLE_OAUTH_CLIENT_ID"],
+              "client_secret" => ENV["GOOGLE_OAUTH_CLIENT_SECRET"]
+            }
+        })
+        client.authorization = secrets.to_authorization
+        client.authorization.grant_type = "refresh_token"
+
+        client.authorization.refresh!
+        current_user.update_attribute(:access_token, client.authorization.access_token)
+        current_user.update_attribute(:refresh_token, client.authorization.refresh_token)
+        retry
     end
 
     def deleteEvent
         eventToDelete = Event.find(params[:event])
+        userID = eventToDelete.clientID
 
         client = get_google_calendar_client current_user
 
@@ -321,7 +319,28 @@ class CalendarController < ApplicationController
             Event.delete(eventToDelete.id)
         end
 
-        redirect_to manager_path()
+        if current_user.ruolo === "manager"
+            redirect_to '/manager/singleone?cliente='+ userID.to_s
+        else
+            redirect_to '/cliente/function'
+        end
+
+    rescue Google::Apis::AuthorizationError
+        secrets = Google::APIClient::ClientSecrets.new({
+            "web" => {
+              "access_token" => current_user.access_token,
+              "refresh_token" => current_user.refresh_token,
+              "client_id" => ENV["GOOGLE_OAUTH_CLIENT_ID"],
+              "client_secret" => ENV["GOOGLE_OAUTH_CLIENT_SECRET"]
+            }
+        })
+        client.authorization = secrets.to_authorization
+        client.authorization.grant_type = "refresh_token"
+
+        client.authorization.refresh!
+        current_user.update_attribute(:access_token, client.authorization.access_token)
+        current_user.update_attribute(:refresh_token, client.authorization.refresh_token)
+        retry
     end
 
     def get_google_calendar_client current_user
@@ -353,49 +372,16 @@ class CalendarController < ApplicationController
         client
     end
 
-    def makeHash(managerID, userID)
-        hash = Hash[
-            managerID: managerID,
-            userID: userID,
-            summary: "MMY_USER_#{userID}"
-        ].hash
-
-        return hash.to_s
-    end
-
-    def newCalendar(calendar, userID, hash, acl_id)
+    def newCalendar(calendar, userID, acl_id)
         calendarToSave = Calendar.new(
             calendarId: calendar.id.to_s,
             summary: calendar.summary.to_s,
             managerId: current_user.id.to_s,
             userId: userID.to_s,
-            hash: hash.to_s,
             acl_id: acl_id.to_s
         )
 
         return calendarToSave
     end
-
-    def authorize
-        FileUtils.mkdir_p(File.dirname(CREDENTIALS_PATH))
-      
-        client_id = Google::Auth::ClientId.from_file(CLIENT_SECRETS_PATH)
-        token_store = Google::Auth::Stores::FileTokenStore.new(file: CREDENTIALS_PATH)
-        authorizer = Google::Auth::UserAuthorizer.new(
-          client_id, SCOPE, token_store)
-        user_id = 'default'
-        credentials = authorizer.get_credentials(user_id)
-        if credentials.nil?
-          url = authorizer.get_authorization_url(base_url: REDIRECT_URI)
-          puts "Open the following URL in the browser and enter the " +
-               "resulting code after authorization"
-          puts url
-          code = gets
-          credentials = authorizer.get_and_store_credentials_from_code(
-            user_id: user_id, code: code, base_url: REDIRECT_URI)
-        end
-        credentials
-      end
-
 end
     
