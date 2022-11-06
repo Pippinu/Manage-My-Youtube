@@ -2,7 +2,6 @@ Rails.application.routes.draw do
   resources :affiliations
   resources :reviews
   resources :videos, only: [:index, :new, :create]
-  resources :video_uploads, only: [:new, :create]
   root 'pages#home'
   
   devise_for :users, controllers: {
