@@ -36,9 +36,11 @@ class ClienteController < ApplicationController
     end
 
     def function
-      client = Google::Apis::YoutubeV3::YouTubeService.new
-      client.authorization = authorize
+      #client = Google::Apis::YoutubeV3::YouTubeService.new
+      #client.authorization = authorize
 
+      client = get_google_youtube_client current_user
+      
       part = 'snippet,contentDetails,statistics'
 
       @mineresponse= client.list_channels(part, "mine":true).to_json
