@@ -64,13 +64,11 @@ Rails.application.routes.draw do
   # get "/oauth2callback", to: "youtube#oauth2callback"
 
   #per yt
-  get "/inizio", to: "yt_menu#index"
   get "/videos", to: "videos#index"
   get "/provayt1", to: "youtube#list"
   get "/provayt2", to: "youtube#youtubeListProva"
   get "/provayt3", to: "youtube#upload"
   post 'upload_video', to: 'youtube#upload', as: 'upload'
-
   get "/list_subs", to: "youtube#list_subs"
   get "/list_activities", to: "youtube#list_activities"
   get "/insert_playlist", to: "youtube#insert_playlist"

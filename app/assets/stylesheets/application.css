@@ -150,6 +150,13 @@ body{
     transform: scale(1.1);
 }
 
+.videocompilation{
+    transition: all .2s ease-in-out;
+}
+
+.videocompilation:hover{
+    transform: scale(1.1);
+}
 
 .mine-btn{
     text-align:center;
