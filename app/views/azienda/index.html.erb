@@ -112,6 +112,12 @@
                                 <p class="font-weight-bold" style="font-weight: bold">Manager: <%= User.find(@affiliazione.manager).full_name %></p>
                             </div>
 
+                            <div class="d-flex flex-row gap-4" style="margin-left:auto">
+                                <% if user.channelID%>
+                                    <a href="https://www.youtube.com/channel/<%= user.channelID%>" target="_blank"><i class="youtubeazienda fa-brands fa-youtube fa-3x" style="color:red"></i></a>
+                                <%end %>
+                                <a href="mailto:<%= user.email %>"><i class="mailazienda fa-regular fa-envelope fa-3x" style="color:black"></i></a>
+                            </div>
 
                             <br>
                         </div>
