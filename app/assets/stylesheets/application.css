@@ -101,22 +101,38 @@ body{
     transition: all .2s ease-in-out;
 }
 
-#youtubelogolink{
+#youtubelogo:hover{
+    transform: scale(1.1);
+}
+
+#statlogo{
+    scale: 150%;
+    color:white;
+    cursor:pointer;
+    position:absolute;
+    right:25%;
+    top:38%;
+    z-index:100;
+    transition: all .2s ease-in-out;
+}
+
+
+#statlogo:hover{
+    transform: scale(1.1);
+}
+
+#buttonsvideo{
     display:none
 }
 
-#youtubelogolink:hover{
+#buttonsvideo:hover{
     display:block
 }
 
-#youtubelogo:hover{
-    transform: scale(1.1);
-    display:block
+#videotemplate:hover + #buttonsvideo{
+    display:block 
 }
 
-#videotemplate:hover + #youtubelogolink{
-    display:block
-}
 
 .mine-btn{
     text-align:center;

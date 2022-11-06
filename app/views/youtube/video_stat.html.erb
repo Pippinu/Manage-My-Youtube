@@ -8,9 +8,9 @@
   
   <title>ManageMyYoutube</title>
   
-<link rel="canonical" href="bookstore.html">
- <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style>
-<noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+    <link rel="canonical" href="bookstore.html">
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style>
+    <noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="old stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" rel="old stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Barlow+Semi+Condensed:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
@@ -77,37 +77,27 @@
 
 <div class="container d-flex flex-row">
     <div class="d-flex flex-column col-12">
-        <h2 class="pb-5">Lista video</h2>
-
-        <!--DA IMPLEMENTARE ! -->
-        
-        <div class="d-flex flex-column gap-5 col-12 pb-5">
-        <% @listActivities.items.each do |item| %>
-                <% if item.snippet.type=="upload"%>
-                <div class="d-flex flex-row">
+        <h2 class="pb-5">Statistiche video</h2>
+            <div class="d-flex flex-row">
                     <div id="videotemplatecontainer">
-                        <img id="videotemplate" src="<%=item.snippet.thumbnails.high.url%>" alt="avatar" style="height: 180px;">
-                        <div id="buttonsvideo">
-                            <a id="youtubelogolink" href="https://www.youtube.com/watch?v=<%= item.content_details.upload.video_id%>" target="_blank">
-                                <i id="youtubelogo" class="fa-brands fa-youtube fa-3x"></i>
-                            </a>
-
-                            <a id="statlogolink" href="/info_video?id=<%= item.content_details.upload.video_id%>">
-                                <i id="statlogo" class="fa-sharp fa-solid fa-chart-simple fa-2x"></i>
-                            </a>
-                        </div>
+                        <a id="youtubelogolink" href="https://www.youtube.com/watch?v=<%=@video_id%>" target="_blank">
+                            <img id="videotemplate" src="<%=@videostat.snippet.thumbnails.high.url%>" alt="avatar" style="height: 180px;">
+                        </a>
                     </div>
                     
                         
                     <div class="px-4 p-3">
-                        <p style="font-weight: bold"> <%= item.snippet.title%></p>
-                        <p> <%= item.snippet.description%></p>
+                        <p style="font-weight: bold"> <%= @videostat.snippet.title%></p>
+                        <p> <%= @videostat.snippet.description%></p>
                     </div>
-                </div>
+            </div>
 
-                <% end%>        
-        <% end %>
-        </div>     
+            <div class="statistics d-flex flex-row gap-5 py-5 p-3">
+                <p style="font-weight: bold"><i class="fa-solid fa-thumbs-up fa-2x" style="color:blue"></i>  <%=@videostat.statistics.like_count%></p>
+                <p style="font-weight: bold"><i class="fa-solid fa-thumbs-down fa-2x" style="color:red"></i>  <%=@videostat.statistics.dislike_count%></p> 
+                <p style="font-weight: bold"><i class="fa-regular fa-eye fa-2x"></i>   <%=@videostat.statistics.view_count%></p>
+                <p style="font-weight: bold"><i class="fa-regular fa-comment fa-2x"></i>  <%=@videostat.statistics.comment_count%></p>
+            </div>               
     </div>
 </div>
 

@@ -36,12 +36,18 @@ class ClienteController < ApplicationController
     end
 
     def function
-        client = Google::Apis::YoutubeV3::YouTubeService.new
-        client.authorization = authorize
+      client = Google::Apis::YoutubeV3::YouTubeService.new
+      client.authorization = authorize
 
-        part = 'snippet,contentDetails,statistics'
+      part = 'snippet,contentDetails,statistics'
 
-        @mineresponse= client.list_channels(part, "mine":true).to_json
+      @mineresponse= client.list_channels(part, "mine":true).to_json
+      item = JSON.parse(@mineresponse).fetch("items")[0]
+
+      channelID= item.fetch("id")
+
+      user = User.find(current_user.id)
+      user.update_attribute(:channelID, channelID)
     end
 
     def visualize

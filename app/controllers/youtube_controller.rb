@@ -195,8 +195,9 @@ class YoutubeController < ApplicationController
   def video_stat
     client = Google::Apis::YoutubeV3::YouTubeService.new
     client.authorization = authorize
+    @video_id= params[:id]
     maxResult = 50
-    @videostat = client.list_videos("statistics",id: "V7fF6RnFQdI")
+    @videostat = client.list_videos("snippet,statistics,id",id: @video_id).items[0]
     puts @videostat
 
 
