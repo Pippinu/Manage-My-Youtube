@@ -81,7 +81,7 @@ class YoutubeController < ApplicationController
     # youtube = Google::Apis::YoutubeV3::YouTubeService.new
     # youtube.authorization = authorize
 
-    if current_user.ruolo === "manager"
+    if current_user.ruolo == "manager"
       cliente = User.find(params[:userID])
       youtube = get_google_youtube_client cliente
     else
@@ -166,12 +166,12 @@ class YoutubeController < ApplicationController
 
 
   #   DA QUI
-  def list_vid_con_channel_id                                                               # usare questa per il manager che chiede video clienti
+  def list_vid_con_channel_id     # usare questa per il manager che chiede video clienti
     #prendere per ogni user del manager l'id dal database
     client = Google::Apis::YoutubeV3::YouTubeService.new
     client.authorization = authorize
- 
-    @listActivities = client.list_activities("snippet",channel_id: "UCVuZe4vjCbQLCLLeXW2NH_Q", max_results: 10)
+    channelID= params[:id]
+    @listActivities = client.list_activities("snippet,contentDetails",channel_id: channelID, max_results: 10)
 
     puts @listActivities
   rescue Google::Apis::AuthorizationError
@@ -191,7 +191,7 @@ class YoutubeController < ApplicationController
     current_user.update_attribute(:refresh_token, client.authorization.refresh_token)
   end
 
-                                      # qui passare un array con i video risultato di list_vid_con_channel_id
+  #qui passare un array con i video risultato di list_vid_con_channel_id
   def video_stat
     client = Google::Apis::YoutubeV3::YouTubeService.new
     client.authorization = authorize

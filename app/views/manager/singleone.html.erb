@@ -134,20 +134,23 @@
             <!--Youtube e Calendar Functions-->
             <div class="d-flex flex-row mb-4">
             
-            <div class="d-flex justify-content-center col-6" style="border-right: 1px solid grey;">
+            <div class="d-flex flex-column align-items-center col-6" style="border-right: 1px solid grey;">
                 <h4>Funzioni Youtube</h4>
                 <div class="d-flex flex-column">
+                    <!-- RIMOSSA: Non credo sia permessa da YT per privacy
                     <hr>
-                    <ul class="list-group">
-                        <div class="d-flex flex-row gap-3 align-items-center">
-                            <div>
-                                <%= link_to list_subs_path(userID: @cliente.id.to_i) do %>
-                                    <li class="btn btn-success mt-1" style="width:100%">Visualizza Iscritti</li>
-                                <% end %>
-                            </div>
-                        </div>
-                    </ul>
+                    <div>
+                        <%= link_to list_subs_path(userID: @cliente.id.to_i) do %>
+                            <li class="btn btn-success mt-1" style="width:100%">Visualizza Iscritti</li>
+                        <% end %>
+                    </div>
+                    -->
                     <hr>
+                    <div>
+                        <a href="/lista_video_channelid?id=<%=@cliente.channelID%>">
+                            <li class="btn btn-success mt-1" style="width:100%">Lista Video Utente</li>
+                        </a>
+                    </div>
                 </div>
             </div>
 
@@ -155,42 +158,42 @@
                 <h4>Funzioni Calendar</h4>
                 
                 <div class="d-flex flex-column">
-                                <hr>
-                                <ul class="list-group">
+                    <hr>
+                    <ul class="list-group">
 
-                                    <%if !Calendar.where(userId: @cliente.id.to_s).where(managerId: current_user.id.to_s).take%>
-                                        <%= link_to calendar_createCalendar_path(userID: @cliente.id.to_i) do %>
-                                            <li class="btn btn-success mt-1" style="width:100%">Crea Calendario</li>
-                                        <% end %>
-                                    <%else%>
-                                    <div class="d-flex flex-row gap-3 align-items-center">
-                                        <div>
-                                            <%= link_to 'http://calendar.google.com/', target: :_blank do %>
-                                                <li class="btn btn-warning mt-1" style="width:100%">Visualizza Calendario</li>
-                                            <% end %>
-                                            <%= link_to calendar_deleteCalendar_path(userID: @cliente.id) do %>
-                                                <li class="btn btn-danger mt-1" style="width:100%">Elimina Calendario</li>
-                                            <% end %>
-                                            <br>
-                                            <hr>
-                                            
-                                            <%= link_to calendar_createEvent_path(userID: @cliente.id) do %>
-                                                <li class="btn btnevent mt-1" style="width:100%; background-color: rgb(169, 249, 255);">Crea Evento</li>
-                                            <% end %>
-                                                <a href="/manager/events?cliente=<%=@cliente.id.to_s%>" class="btn btnevent mt-1" style="width:100%;  background-color: rgb(98, 245, 255)">Visualizza Eventi</a>
-                                            <!--
-                                            <%= link_to calendar_listEvent_path(userID: @cliente.id) do %>
-                                                <li class="btn btnevent mt-1" style="width:100%;  background-color: rgb(98, 245, 255)";>Modifica Evento</li>
-                                            <% end %>
-                                            <%= link_to calendar_deleteEvent_path(userID: @cliente.id) do %>
-                                                <li class="btn btnevent mt-1" style="width:100%; background-color:rgb(4, 238, 255);">Elimina Evento</li>
-                                            <% end %>
-                                            -->
-                                        </div>
-                                    </div>
-                                    <%end%>
-                                </ul>
+                        <%if !Calendar.where(userId: @cliente.id.to_s).where(managerId: current_user.id.to_s).take%>
+                            <%= link_to calendar_createCalendar_path(userID: @cliente.id.to_i) do %>
+                                <li class="btn btn-success mt-1" style="width:100%">Crea Calendario</li>
+                            <% end %>
+                        <%else%>
+                        <div class="d-flex flex-row gap-3 align-items-center">
+                            <div>
+                                <%= link_to 'http://calendar.google.com/', target: :_blank do %>
+                                    <li class="btn btn-warning mt-1" style="width:100%">Visualizza Calendario</li>
+                                <% end %>
+                                <%= link_to calendar_deleteCalendar_path(userID: @cliente.id) do %>
+                                    <li class="btn btn-danger mt-1" style="width:100%">Elimina Calendario</li>
+                                <% end %>
+                                <br>
+                                <hr>
+                                
+                                <%= link_to calendar_createEvent_path(userID: @cliente.id) do %>
+                                    <li class="btn btnevent mt-1" style="width:100%; background-color: rgb(169, 249, 255);">Crea Evento</li>
+                                <% end %>
+                                    <a href="/manager/events?cliente=<%=@cliente.id.to_s%>" class="btn btnevent mt-1" style="width:100%;  background-color: rgb(98, 245, 255)">Visualizza Eventi</a>
+                                <!--
+                                <%= link_to calendar_listEvent_path(userID: @cliente.id) do %>
+                                    <li class="btn btnevent mt-1" style="width:100%;  background-color: rgb(98, 245, 255)";>Modifica Evento</li>
+                                <% end %>
+                                <%= link_to calendar_deleteEvent_path(userID: @cliente.id) do %>
+                                    <li class="btn btnevent mt-1" style="width:100%; background-color:rgb(4, 238, 255);">Elimina Evento</li>
+                                <% end %>
+                                -->
                             </div>
+                        </div>
+                        <%end%>
+                    </ul>
+                </div>
             </div>
 
             </div>
