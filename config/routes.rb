@@ -61,7 +61,7 @@ Rails.application.routes.draw do
 
   get "/YTProva", to: "youtube#youtubeListProva"
 
-  get "/oauth2callback", to: "youtube#oauth2callback"
+  #get "/oauth2callback", to: "youtube#oauth2callback"
 
   #per yt
   get "/inizio", to: "yt_menu#index"
@@ -77,6 +77,8 @@ Rails.application.routes.draw do
   get "/info_video" , to: "youtube#video_stat"
   get "/lista_video", to: "youtube#list_vid"
   get "/lista_video_channelid", to: "youtube#list_vid_con_channel_id"
+  get "/videograph", to: "youtube#videograph"
+
   get "/prova_grafico", to: "youtube#prova_grafico"
   
 

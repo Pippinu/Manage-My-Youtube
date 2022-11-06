@@ -107,7 +107,8 @@ body{
 
 #statlogo{
     scale: 150%;
-    color:white;
+    color:#ffffff;
+    
     cursor:pointer;
     position:absolute;
     right:25%;

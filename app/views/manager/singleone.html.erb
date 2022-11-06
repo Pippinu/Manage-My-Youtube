@@ -137,18 +137,25 @@
             <div class="d-flex flex-column align-items-center col-6" style="border-right: 1px solid grey;">
                 <h4>Funzioni Youtube</h4>
                 <div class="d-flex flex-column">
-                    <!-- RIMOSSA: Non credo sia permessa da YT per privacy
+
                     <hr>
                     <div>
                         <%= link_to list_subs_path(userID: @cliente.id.to_i) do %>
                             <li class="btn btn-success mt-1" style="width:100%">Visualizza Iscritti</li>
                         <% end %>
                     </div>
-                    -->
+
                     <hr>
                     <div>
                         <a href="/lista_video_channelid?id=<%=@cliente.channelID%>">
                             <li class="btn btn-success mt-1" style="width:100%">Lista Video Utente</li>
+                        </a>
+                    </div>
+
+                    <hr>
+                    <div>
+                        <a href="/videograph?id=<%=@cliente.channelID%>">
+                            <li class="btn btn-success mt-1" style="width:100%">Grafico Statistiche</li>
                         </a>
                     </div>
                 </div>

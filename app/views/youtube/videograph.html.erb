@@ -77,37 +77,18 @@
 
 <div class="container d-flex flex-row">
     <div class="d-flex flex-column col-12">
-        <h2 class="pb-5">Lista video</h2>
+        <h2 class="pb-5">Grafico Statistiche</h2>
 
         <!--DA IMPLEMENTARE ! -->
         
         <div class="d-flex flex-column gap-5 col-12 pb-5">
-        <% @listActivities.items.each do |item| %>
-                <% if item.snippet.type=="upload"%>
-                <div class="d-flex flex-row">
-                    <div id="videotemplatecontainer">
-                        <img id="videotemplate" src="<%=item.snippet.thumbnails.high.url%>" alt="avatar" style="height: 180px;">
-                        <div id="buttonsvideo">
-                            <a id="youtubelogolink" href="https://www.youtube.com/watch?v=<%= item.content_details.upload.video_id%>" target="_blank">
-                                <i id="youtubelogo" class="fa-brands fa-youtube fa-3x"></i>
-                            </a>
-
-                            <a id="statlogolink" href="/info_video?id=<%= item.content_details.upload.video_id%>">
-                                <i id="statlogo" class="fa-sharp fa-solid fa-chart-simple fa-2x"></i>
-                            </a>
-                        </div>
-                    </div>
-                    
-                        
-                    <div class="px-4 p-3">
-                        <p style="font-weight: bold"> <%= item.snippet.title%></p>
-                        <p> <%= item.snippet.description%></p>
-                    </div>
-                </div>
-
-                <% end%>        
-        <% end %>
-        </div>     
+            <h3>Grafico Like</h3>
+            <%= line_chart @videoLike,xtitle: "Numero del Video",ytitle: "Likes",colors:["#70ff70","#666"] %>
+            <h3>Grafico Visualizzazioni</h3>
+            <%= line_chart @videoViews,xtitle: "Numero del Video",ytitle: "Visualizzazioni",colors:["#ff0000","#666"] %>
+            <h3>Grafico Commenti</h3>
+            <%= line_chart @videoComments,xtitle: "Numero del Video",ytitle: "Numero Commenti"%>
+        </div>   
     </div>
 </div>
 

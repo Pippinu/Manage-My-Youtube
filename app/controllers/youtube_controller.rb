@@ -191,6 +191,8 @@ class YoutubeController < ApplicationController
     current_user.update_attribute(:refresh_token, client.authorization.refresh_token)
   end
 
+
+
   #qui passare un array con i video risultato di list_vid_con_channel_id
   def video_stat
     client = Google::Apis::YoutubeV3::YouTubeService.new
@@ -249,120 +251,51 @@ class YoutubeController < ApplicationController
 
     retry
   end
-  # def youtubeListProva
-  #   client = get_google_youtube_client current_user
-  #   @dati = client.list_channels("UCJgEAT_2X9rkjjyq5cfZ-GQ")
-      
-  # rescue Google::Apis::AuthorizationError
-  #     secrets = Google::APIClient::ClientSecrets.new({
-  #         "web" => {
-  #           "access_token" => current_user.access_token,
-  #           "refresh_token" => current_user.refresh_token,
-  #           "client_id" => ENV["GOOGLE_OAUTH_CLIENT_ID"],
-  #           "client_secret" => ENV["GOOGLE_OAUTH_CLIENT_SECRET"]
-  #         }
-  #     })
-  #     client.authorization = secrets.to_authorization
-  #     client.authorization.grant_type = "refresh_token"
 
-  #     client.authorization.refresh!
-  #     current_user.update_attribute(:access_token, client.authorization.access_token)
-  #     current_user.update_attribute(:refresh_token, client.authorization.refresh_token)
-      
-  #     retry
-  # end
+  def videograph
+    client = Google::Apis::YoutubeV3::YouTubeService.new
+    client.authorization = authorize
+    channelID= params[:id]
+    @listActivities = client.list_activities("snippet,contentDetails,id",channel_id: channelID, max_results: 10)
 
-  # def uploadProva
-  #   client = get_google_youtube_client current_user
-  #   youtube = client.discovered_api(YOUTUBE_API_SERVICE_NAME, YOUTUBE_API_VERSION)
+    allVideos= Array.new()
 
-  #   respond_to do |format|
-  #     format.html { render :upload_video }
-  #   end
-  #   required = [:name, :email, :reply, :feedback_type, :message]
-  #   form_complete = true
-  #   required.each do |f|
-  #     if params.has_key? f and not params[f].blank?
-  #       # that's good news. do nothing
-  #     else
-  #       form_complete = false
-  #     end
-  #   end
-  #   if form_complete
-  #     form_status_msg = 'Thank you for your feedback!'
-  #   else
-  #     form_status_msg = 'Please fill in all the remaining form fields and resubmit.'
-  #   end
-  #   format.html { render :contact, locals: { status_msg: form_status_msg } }
+    @listActivities.items.each do |item| 
+      if item.snippet.type=="upload"
+        allVideos.push(item.content_details.upload.video_id)
+      end
+    end
 
-  #   begin
-  #     body = {
-  #       :snippet => {
-  #         :title => opts[:title],
-  #         :description => opts[:description],
-  #         :tags => opts[:keywords].split(','),
-  #         :categoryId => opts[:category_id],
-  #       },
-  #       :status => {
-  #         :privacyStatus => opts[:privacy_status]
-  #       }
-  #     }
-  
-  #     videos_insert_response = client.execute!(
-  #       :api_method => youtube.videos.insert,
-  #       :body_object => body,
-  #       :media => Google::APIClient::UploadIO.new(opts[:file], 'video/*'),
-  #       :parameters => {
-  #         :uploadType => 'resumable',
-  #         :part => body.keys.join(',')
-  #       }
-  #     )
-  
-  #     videos_insert_response.resumable_upload.send_all(client)
-  
-  #     @inserted = "Video id '#{videos_insert_response.data.id}' was successfully uploaded."
-  #   rescue Google::APIClient::TransmissionError => e
-  #     @resBody = e.result.body
-  #   end
-      
-  # rescue Google::Apis::AuthorizationError
-  #     secrets = Google::APIClient::ClientSecrets.new({
-  #         "web" => {
-  #           "access_token" => current_user.access_token,
-  #           "refresh_token" => current_user.refresh_token,
-  #           "client_id" => ENV["GOOGLE_OAUTH_CLIENT_ID"],
-  #           "client_secret" => ENV["GOOGLE_OAUTH_CLIENT_SECRET"]
-  #         }
-  #     })
-  #     client.authorization = secrets.to_authorization
-  #     client.authorization.grant_type = "refresh_token"
+    @videoLike= Array.new()
+    @videoViews= Array.new()
+    @videoComments= Array.new()
 
-  #     client.authorization.refresh!
-  #     current_user.update_attribute(:access_token, client.authorization.access_token)
-  #     current_user.update_attribute(:refresh_token, client.authorization.refresh_token)
-  #     retry
-  # end
+    i=0
+    for singlevideo in allVideos
+      @video_id= singlevideo
+      @videostat = client.list_videos("snippet,statistics,id",id: @video_id).items[0]
+      @videoLike[i]=[i+1,@videostat.statistics.like_count]
+      @videoViews[i]=[i+1,@videostat.statistics.view_count]
+      @videoComments[i]=[i+1,@videostat.statistics.comment_count]
+      i=i+1
+    end
 
-  # def upload
-  #   respond_to do |format|
-  #     format.html { render :upload_video }
-  #   end
-  #   required = [:name, :email]
-  #   form_complete = true
-  #   required.each do |f|
-  #     if params.has_key? f and not params[f].blank?
-  #       # that's good news. do nothing
-  #     else
-  #       form_complete = false
-  #     end
-  #   end
-  #   if form_complete
-  #     format.html { render :name }
-  #     form_status_msg = 'Thank you for your feedback!'
-  #   else
-  #     form_status_msg = 'Please fill in all the remaining form fields and resubmit.'
-  #   end
-  # end
+  rescue Google::Apis::AuthorizationError
+    secrets = Google::APIClient::ClientSecrets.new({
+        "web" => {
+          "access_token" => current_user.access_token,
+          "refresh_token" => current_user.refresh_token,
+          "client_id" => ENV["GOOGLE_OAUTH_CLIENT_ID"],
+          "client_secret" => ENV["GOOGLE_OAUTH_CLIENT_SECRET"]
+        }
+    })
+    client.authorization = secrets.to_authorization
+    client.authorization.grant_type = "refresh_token"
+
+    client.authorization.refresh!
+    current_user.update_attribute(:access_token, client.authorization.access_token)
+    current_user.update_attribute(:refresh_token, client.authorization.refresh_token)
+  end
 
   def get_google_youtube_client current_user
     client = Google::Apis::YoutubeV3::YouTubeService.new
