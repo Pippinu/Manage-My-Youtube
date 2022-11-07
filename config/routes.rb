@@ -76,7 +76,6 @@ Rails.application.routes.draw do
   get "/lista_video", to: "youtube#list_vid"
   get "/lista_video_channelid", to: "youtube#list_vid_con_channel_id"
   get "/videograph", to: "youtube#videograph"
-
   get "/prova_grafico", to: "youtube#prova_grafico"
   
 

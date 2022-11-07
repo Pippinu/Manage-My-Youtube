@@ -213,15 +213,20 @@
                         <div class="title-block">
                             <h2 class="title2 mbr-fonts-style mbr-black mbr-semibold display-2">Gestisci il tuo canale</h2>
                             <p class="text2 mbr-fonts-style mbr-black mbr-regular mbr-pt-2 display-7">Controlla e gestisci il tuo canale Youtube</p>
+                            <%if current_user.provider=="google_oauth2"%>
                             <div class="mbr-section-mine-btn mbr-pt-3">
-                            <a class="mine-btn-primary mine-btn display-4"  href="cliente/function">
-                                <span class="mobi-mbri mobi-mbri-arrow-next mbr-iconfont mbr-iconfont-mine-btn">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="100%" height="100%">
-                                <path d="M4.6 22.6L15.2 12 4.6 1.4 6 0l12 12L6 24z"></path>
-                                </svg>
-                                </span>
-                                Inizia
-                                </a></div>
+                                <a class="mine-btn-primary mine-btn display-4"  href="cliente/function">
+                                    <span class="mobi-mbri mobi-mbri-arrow-next mbr-iconfont mbr-iconfont-mine-btn">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="100%" height="100%">
+                                    <path d="M4.6 22.6L15.2 12 4.6 1.4 6 0l12 12L6 24z"></path>
+                                    </svg>
+                                    </span>
+                                    Inizia
+                                </a>
+                            </div>
+                            <%else%>
+                                <p class="py-2" style="color:red">Devi essere loggato con OAuth per gestire il tuo canale</p>
+                            <%end%>
                         </div>
                     </div>
                 </div>
