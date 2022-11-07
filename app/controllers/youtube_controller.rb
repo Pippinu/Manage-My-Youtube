@@ -79,7 +79,7 @@ class YoutubeController < ApplicationController
 
     if current_user.ruolo == "manager"
       cliente = User.find(params[:userID])
-      youtube = get_google_youtube_client cliente
+      client = get_google_youtube_client cliente
     else
       client = get_google_youtube_client current_user
     end
