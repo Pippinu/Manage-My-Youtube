@@ -27,12 +27,6 @@ class YoutubeController < ApplicationController
   # CREDENTIALS_PATH = "app/controllers/authCredentials.yaml"
   # REDIRECT_URI = 'http://localhost:3000/oauth2callback'
   # APPLICATION_NAME = 'Progetto LASSI'
-  
-  def prova_grafico
-    @dati_l=[[12,32,23,56],[122,246,73,300]]
-    
-  end
-
 
   def list
     client = get_google_youtube_client current_user
@@ -68,14 +62,10 @@ class YoutubeController < ApplicationController
     client.authorization.refresh!
     current_user.update_attribute(:access_token, client.authorization.access_token)
     current_user.update_attribute(:refresh_token, client.authorization.refresh_token)
-
     retry
   end
 
   def list_subs
-    # client = get_google_youtube_client current_user
-    # youtube = Google::Apis::YoutubeV3::YouTubeService.new
-    # youtube.authorization = authorize
 
     if current_user.ruolo == "manager"
       cliente = User.find(params[:userID])
@@ -108,13 +98,10 @@ class YoutubeController < ApplicationController
     client.authorization.refresh!
     current_user.update_attribute(:access_token, client.authorization.access_token)
     current_user.update_attribute(:refresh_token, client.authorization.refresh_token)
-
     retry
   end
 
   def list_activities
-    # client = Google::Apis::YoutubeV3::YouTubeService.new
-    # client.authorization = authorize
 
     client = get_google_youtube_client current_user
 
@@ -140,8 +127,6 @@ class YoutubeController < ApplicationController
   end
 
   def list_vid
-    # client = Google::Apis::YoutubeV3::YouTubeService.new
-    # client.authorization = authorize
 
     client = get_google_youtube_client current_user
     
@@ -163,14 +148,13 @@ class YoutubeController < ApplicationController
     client.authorization.refresh!
     current_user.update_attribute(:access_token, client.authorization.access_token)
     current_user.update_attribute(:refresh_token, client.authorization.refresh_token)
+    retry
   end
 
 
   #   DA QUI
   def list_vid_con_channel_id     # usare questa per il manager che chiede video clienti
     #prendere per ogni user del manager l'id dal database
-    # client = Google::Apis::YoutubeV3::YouTubeService.new
-    # client.authorization = authorize
 
     client = get_google_youtube_client current_user
 
@@ -193,14 +177,11 @@ class YoutubeController < ApplicationController
     client.authorization.refresh!
     current_user.update_attribute(:access_token, client.authorization.access_token)
     current_user.update_attribute(:refresh_token, client.authorization.refresh_token)
+    retry
   end
-
-
 
   #qui passare un array con i video risultato di list_vid_con_channel_id
   def video_stat
-    # client = Google::Apis::YoutubeV3::YouTubeService.new
-    # client.authorization = authorize
 
     client = get_google_youtube_client current_user
 
@@ -224,6 +205,7 @@ class YoutubeController < ApplicationController
     client.authorization.refresh!
     current_user.update_attribute(:access_token, client.authorization.access_token)
     current_user.update_attribute(:refresh_token, client.authorization.refresh_token)
+    retry
   end
 
   def insert_playlist
@@ -258,120 +240,6 @@ class YoutubeController < ApplicationController
 
     retry
   end
-  # def youtubeListProva
-  #   client = get_google_youtube_client current_user
-  #   @dati = client.list_channels("UCJgEAT_2X9rkjjyq5cfZ-GQ")
-      
-  # rescue Google::Apis::AuthorizationError
-  #     secrets = Google::APIClient::ClientSecrets.new({
-  #         "web" => {
-  #           "access_token" => current_user.access_token,
-  #           "refresh_token" => current_user.refresh_token,
-  #           "client_id" => ENV["GOOGLE_OAUTH_CLIENT_ID"],
-  #           "client_secret" => ENV["GOOGLE_OAUTH_CLIENT_SECRET"]
-  #         }
-  #     })
-  #     client.authorization = secrets.to_authorization
-  #     client.authorization.grant_type = "refresh_token"
-
-  #     client.authorization.refresh!
-  #     current_user.update_attribute(:access_token, client.authorization.access_token)
-  #     current_user.update_attribute(:refresh_token, client.authorization.refresh_token)
-      
-  #     retry
-  # end
-
-  # def uploadProva
-  #   client = get_google_youtube_client current_user
-  #   youtube = client.discovered_api(YOUTUBE_API_SERVICE_NAME, YOUTUBE_API_VERSION)
-
-  #   respond_to do |format|
-  #     format.html { render :upload_video }
-  #   end
-  #   required = [:name, :email, :reply, :feedback_type, :message]
-  #   form_complete = true
-  #   required.each do |f|
-  #     if params.has_key? f and not params[f].blank?
-  #       # that's good news. do nothing
-  #     else
-  #       form_complete = false
-  #     end
-  #   end
-  #   if form_complete
-  #     form_status_msg = 'Thank you for your feedback!'
-  #   else
-  #     form_status_msg = 'Please fill in all the remaining form fields and resubmit.'
-  #   end
-  #   format.html { render :contact, locals: { status_msg: form_status_msg } }
-
-  #   begin
-  #     body = {
-  #       :snippet => {
-  #         :title => opts[:title],
-  #         :description => opts[:description],
-  #         :tags => opts[:keywords].split(','),
-  #         :categoryId => opts[:category_id],
-  #       },
-  #       :status => {
-  #         :privacyStatus => opts[:privacy_status]
-  #       }
-  #     }
-  
-  #     videos_insert_response = client.execute!(
-  #       :api_method => youtube.videos.insert,
-  #       :body_object => body,
-  #       :media => Google::APIClient::UploadIO.new(opts[:file], 'video/*'),
-  #       :parameters => {
-  #         :uploadType => 'resumable',
-  #         :part => body.keys.join(',')
-  #       }
-  #     )
-  
-  #     videos_insert_response.resumable_upload.send_all(client)
-  
-  #     @inserted = "Video id '#{videos_insert_response.data.id}' was successfully uploaded."
-  #   rescue Google::APIClient::TransmissionError => e
-  #     @resBody = e.result.body
-  #   end
-      
-  # rescue Google::Apis::AuthorizationError
-  #     secrets = Google::APIClient::ClientSecrets.new({
-  #         "web" => {
-  #           "access_token" => current_user.access_token,
-  #           "refresh_token" => current_user.refresh_token,
-  #           "client_id" => ENV["GOOGLE_OAUTH_CLIENT_ID"],
-  #           "client_secret" => ENV["GOOGLE_OAUTH_CLIENT_SECRET"]
-  #         }
-  #     })
-  #     client.authorization = secrets.to_authorization
-  #     client.authorization.grant_type = "refresh_token"
-
-  #     client.authorization.refresh!
-  #     current_user.update_attribute(:access_token, client.authorization.access_token)
-  #     current_user.update_attribute(:refresh_token, client.authorization.refresh_token)
-  #     retry
-  # end
-
-  # def upload
-  #   respond_to do |format|
-  #     format.html { render :upload_video }
-  #   end
-  #   required = [:name, :email]
-  #   form_complete = true
-  #   required.each do |f|
-  #     if params.has_key? f and not params[f].blank?
-  #       # that's good news. do nothing
-  #     else
-  #       form_complete = false
-  #     end
-  #   end
-  #   if form_complete
-  #     format.html { render :name }
-  #     form_status_msg = 'Thank you for your feedback!'
-  #   else
-  #     form_status_msg = 'Please fill in all the remaining form fields and resubmit.'
-  #   end
-  # end
 
   def get_google_youtube_client current_user
     client = Google::Apis::YoutubeV3::YouTubeService.new
@@ -402,28 +270,4 @@ class YoutubeController < ApplicationController
     end
     client
   end
-
-  # def authorize
-  #   FileUtils.mkdir_p(File.dirname(CREDENTIALS_PATH))
-  
-  #   client_id = Google::Auth::ClientId.from_file(CLIENT_SECRETS_PATH)
-  #   token_store = Google::Auth::Stores::FileTokenStore.new(file: CREDENTIALS_PATH)
-  #   authorizer = Google::Auth::UserAuthorizer.new(
-  #     client_id, SCOPE, token_store)
-  #   user_id = 'default'
-  #   credentials = authorizer.get_credentials(user_id)
-  #   if credentials.nil?
-  #     url = authorizer.get_authorization_url(base_url: REDIRECT_URI)
-  #     puts "Open the following URL in the browser and enter the " +
-  #           "resulting code after authorization"
-  #     puts url
-  #     code = gets
-  #     credentials = authorizer.get_and_store_credentials_from_code(
-  #       user_id: user_id, code: code, base_url: REDIRECT_URI)
-  #   end
-  #   credentials
-  # end
-
-  # def oauth2callback
-  # end
 end
