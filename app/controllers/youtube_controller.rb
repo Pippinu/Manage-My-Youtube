@@ -7,26 +7,6 @@ require 'fileutils'
 
 
 class YoutubeController < ApplicationController
-  # YOUTUBE_UPLOAD_SCOPE = 'https://www.googleapis.com/auth/youtube.upload'
-  # YOUTUBE_API_SERVICE_NAME = 'youtube'
-  # YOUTUBE_API_VERSION = 'v3'
-
-  # SCOPE = ['https://www.googleapis.com/auth/calendar',
-  #   'https://www.googleapis.com/auth/calendar.events',
-  #   'https://www.googleapis.com/auth/calendar.events.readonly',
-  #   'https://www.googleapis.com/auth/calendar.readonly',
-  #   'https://www.googleapis.com/auth/calendar.settings.readonly',
-  #   'https://www.googleapis.com/auth/youtube',
-  #   'https://www.googleapis.com/auth/youtube.force-ssl',
-  #   'https://www.googleapis.com/auth/youtube.readonly',
-  #   'https://www.googleapis.com/auth/youtube.upload',
-  #   'https://www.googleapis.com/auth/youtubepartner',
-  #   'https://www.googleapis.com/auth/youtubepartner-channel-audit']
-
-  # CLIENT_SECRETS_PATH = 'app/controllers/client_secret.json'
-  # CREDENTIALS_PATH = "app/controllers/authCredentials.yaml"
-  # REDIRECT_URI = 'http://localhost:3000/oauth2callback'
-  # APPLICATION_NAME = 'Progetto LASSI'
 
   def list
     client = get_google_youtube_client current_user
@@ -151,7 +131,6 @@ class YoutubeController < ApplicationController
     retry
   end
 
-
   #   DA QUI
   def list_vid_con_channel_id     # usare questa per il manager che chiede video clienti
     #prendere per ogni user del manager l'id dal database
@@ -210,8 +189,6 @@ class YoutubeController < ApplicationController
 
   def insert_playlist
     client = get_google_youtube_client current_user
-    # client = Google::Apis::YoutubeV3::YouTubeService.new
-    # client.authorization = authorize
 
     playlistObj = Google::Apis::YoutubeV3::Playlist.new(
       snippet: {
@@ -221,7 +198,8 @@ class YoutubeController < ApplicationController
     )
     
     @playlist = client.insert_playlist("snippet", playlistObj)
-
+    
+    redirect_to '/manager/singleone?cliente='+ current_user.id.to_s
   rescue Google::Apis::AuthorizationError
     secrets = Google::APIClient::ClientSecrets.new({
         "web" => {
