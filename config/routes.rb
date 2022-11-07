@@ -10,7 +10,6 @@ Rails.application.routes.draw do
     registrations: 'users/registrations'
   }
 
-  
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
   get '/profile' => 'profile#index'
   get '/profile/nameandrole' => 'profile#nameandrole'
@@ -78,6 +77,4 @@ Rails.application.routes.draw do
   get "/videograph", to: "youtube#videograph"
 
   get "/prova_grafico", to: "youtube#prova_grafico"
-  
-
 end

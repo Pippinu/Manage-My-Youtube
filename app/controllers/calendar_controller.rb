@@ -17,23 +17,6 @@ require 'rubygems'
 
 class CalendarController < ApplicationController
 
-    # SCOPE = ['https://www.googleapis.com/auth/calendar',
-    #         'https://www.googleapis.com/auth/calendar.events',
-    #         'https://www.googleapis.com/auth/calendar.events.readonly',
-    #         'https://www.googleapis.com/auth/calendar.readonly',
-    #         'https://www.googleapis.com/auth/calendar.settings.readonly',
-    #         'https://www.googleapis.com/auth/youtube',
-    #         'https://www.googleapis.com/auth/youtube.force-ssl',
-    #         'https://www.googleapis.com/auth/youtube.readonly',
-    #         'https://www.googleapis.com/auth/youtube.upload',
-    #         'https://www.googleapis.com/auth/youtubepartner',
-    #         'https://www.googleapis.com/auth/youtubepartner-channel-audit']
-
-    # CLIENT_SECRETS_PATH = 'app/controllers/client_secret.json'
-    # CREDENTIALS_PATH = "app/controllers/youtube-quickstart-ruby-credentials.yaml"
-    # REDIRECT_URI = 'http://localhost:3000/oauth2callback'
-    # APPLICATION_NAME = 'Progetto LASSI'
-
     def new
         @calendar = Calendar.new
     end
@@ -121,7 +104,6 @@ class CalendarController < ApplicationController
         retry
     end
 
-    # OK Cliente e OK Manager
     def createEvent
         @event = Event.new
 
@@ -138,11 +120,6 @@ class CalendarController < ApplicationController
         userID = event[:userID]
 
         client = get_google_calendar_client current_user
-
-        # Da sistemare con tutti i dati
-        # @newEvent = Event.new()
-        # @newEvent.summary = event[:summary]
-        # @newEvent.save
 
         # Controlla la scelta di creazione della conferenza meet dal form
         if event[:meetConference]
