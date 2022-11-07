@@ -384,4 +384,3 @@ class CalendarController < ApplicationController
         return calendarToSave
     end
 end
-    
